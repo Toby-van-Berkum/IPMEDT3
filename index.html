@@ -1,16 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
+  <script src="main.js"></script>
+  <title>Test</title>
 </head>
+
 <body>
-    <a-scene>
-        <a-plane position="0 0 -4" rotation="-90 0 0" width="4" height="4" color="#7BC8A4"></a-plane>
-        <a-sphere position="0 1.25 -5" radius="1.25" color="#EF2D5E"></a-sphere>
-        <a-sky color="#ECECED"></a-sky>
-    </a-scene>
+  <a-scene>
+
+    <!-- blender assets -->
+    <a-assets>
+      <a-asset-item id="canal-obj" src="canalV3.obj"></a-asset-item>
+      <a-asset-item id="canal-mtl" src="canalV3.mtl"></a-asset-item>
+    </a-assets>
+
+    <a-camera id="js--camera" position="10 5 2">
+
+      <a-entity
+        animation__click="property: scale; startEvents: click; easing: easeInCubic; dur: 150; from: 0.1 0.1 0.1; to: 1 1 1"
+
+        animation__fusing="property: scale; startEvents: fusing; easing: easeInCubic; dur: 2000; from: 1 1 1; to: 0.1 0.1 0.1"
+
+        animation="property: scale; startEvents: mouseleave; easing: easeInCubic; dur: 500; to: 1 1 1"
+
+
+
+        cursor = "fuse: true; fuseTimeout: 2000"
+        material = "color: black; shader: flat"
+        geometry = "primitive: ring; radiusInner: 0.007; radiusOuter: 0.01"
+        position = "0 0 -0.5"
+        raycaster = "objects: .js--place, .js--canvas, .js--color">
+      </a-entity>
+
+
+    </a-camera>
+    <a-entity obj-model="obj: #canal-obj; mtl: #canal-mtl" scale="100 100 100" position="0 0.2 -20" rotation="0 0 0" shadow material="metalness: 0; roughness: 1;"></a-entity>
+
+    <a-plane color="blue" position="0 -5 -7" width="1000" height="1000" rotation="-90 0 0" shadow material="metalness: 0.1; roughness: 0;"></a-plane>
+
+    <!-- lighting --> 
+    <a-entity light="type: ambient; color: #fcffc7"></a-entity>
+    <a-entity light="type: directional; color: #FFF; intensity: 2" position="-0.5 50 1"></a-entity>
+
+
+    <a-sky src="skyV2.jpg" rotation="0 -90 0"></a-sky>
+    
+
+    <!-- audio -->
+
+
+    <!-- a frame positions are x y z aka width height depth -->
+
+  </script>
+  </a-scene>
 </body>
 </html>
