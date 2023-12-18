@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
-  <script src="main.js"></script>
-  <title>Test</title>
+  <script src="javascript/main.js"></script>
+  <title>(WOP) Fishing Game</title>
 </head>
 
 <body>
@@ -14,11 +14,12 @@
 
     <!-- blender assets -->
     <a-assets>
-      <a-asset-item id="canal-obj" src="canalV3.obj"></a-asset-item>
-      <a-asset-item id="canal-mtl" src="canalV3.mtl"></a-asset-item>
+      <a-asset-item id="canal-obj" src="assets/canalV1.obj"></a-asset-item>
+      <a-asset-item id="canal-mtl" src="assets/canalV1.mtl"></a-asset-item>
     </a-assets>
 
-    <a-camera id="js--camera" position="10 5 2">
+    <!-- camera -->
+    <a-camera id="js--camera" position="12.5 5 2">
 
       <a-entity
         animation__click="property: scale; startEvents: click; easing: easeInCubic; dur: 150; from: 0.1 0.1 0.1; to: 1 1 1"
@@ -35,9 +36,10 @@
         position = "0 0 -0.5"
         raycaster = "objects: .js--place, .js--canvas, .js--color">
       </a-entity>
-
-
     </a-camera>
+
+
+    <!-- scenery -->
     <a-entity obj-model="obj: #canal-obj; mtl: #canal-mtl" scale="100 100 100" position="0 0.2 -20" rotation="0 0 0" shadow material="metalness: 0; roughness: 1;"></a-entity>
 
     <a-plane color="blue" position="0 -5 -7" width="1000" height="1000" rotation="-90 0 0" shadow material="metalness: 0.1; roughness: 0;"></a-plane>
@@ -46,8 +48,8 @@
     <!-- <a-entity light="type: ambient; color: #fcffc7"></a-entity>
     <a-entity light="type: directional; color: #FFF; intensity: 2" position="-0.5 50 1"></a-entity> -->
 
-
-    <a-sky src="skyV2.jpg" rotation="0 -90 0"></a-sky>
+    <!-- sky -->
+    <a-sky src="images/sky.jpg" rotation="0 -90 0"></a-sky>
     
 
     <!-- audio -->
