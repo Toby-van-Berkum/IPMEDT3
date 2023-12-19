@@ -8,7 +8,6 @@
   <script src="javascript/main.js"></script>
   <title>(WOP) Fishing Game</title>
 </head>
-
 <body>
   <a-scene>
 
@@ -19,7 +18,7 @@
     </a-assets>
 
     <!-- camera -->
-    <a-camera id="js--camera" position="12.5 5 2">
+    <a-camera id="js--camera">
 
       <a-entity
         animation__click="property: scale; startEvents: click; easing: easeInCubic; dur: 150; from: 0.1 0.1 0.1; to: 1 1 1"
@@ -34,15 +33,16 @@
         material = "color: black; shader: flat"
         geometry = "primitive: ring; radiusInner: 0.007; radiusOuter: 0.01"
         position = "0 0 -0.5"
-        raycaster = "objects: .js--place, .js--canvas, .js--color">
+        raycaster = "objects: .js--place, .js--canvas, .js--color, #lefthand, #righthand">
       </a-entity>
     </a-camera>
-
+    <a-entity id="leftHand" hand-controls="hand: left; handModelStyle: lowPoly; color: #ffcccc"></a-entity>
+    <a-entity id="rightHand" hand-controls="hand: right; handModelStyle: lowPoly; color: #ffcccc"></a-entity>   
 
     <!-- scenery -->
-    <a-entity obj-model="obj: #canal-obj; mtl: #canal-mtl" scale="100 100 100" position="0 0.2 -20" rotation="0 0 0" shadow material="metalness: 0; roughness: 1;"></a-entity>
+    <a-entity obj-model="obj: #canal-obj; mtl: #canal-mtl" scale="50 50 50" position="-6 -1 -8" rotation="0 0 0" shadow></a-entity>
 
-    <a-plane color="blue" position="0 -5 -7" width="1000" height="1000" rotation="-90 0 0" shadow material="metalness: 0.1; roughness: 0;"></a-plane>
+    <a-plane color="blue" position="0 -3 -7" width="1000" height="1000" rotation="-90 0 0" shadow material="metalness: 0.1; roughness: 0;"></a-plane>
 
     <!-- lighting --> 
     <!-- <a-entity light="type: ambient; color: #fcffc7"></a-entity>
@@ -57,9 +57,6 @@
 
     <!-- a frame positions are x y z aka width height depth -->
 
-  </script>
   </a-scene>
 </body>
-</html>
-
 </html>
