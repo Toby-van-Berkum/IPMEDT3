@@ -15,8 +15,8 @@
     <!-- blender assets -->
     <a-assets>
       <!-- scenery asset -->
-      <a-asset-item id="canal-obj" src="assets/wide_canal.obj"></a-asset-item>
-      <a-asset-item id="canal-mtl" src="assets/wide_canal.mtl"></a-asset-item>
+      <a-asset-item id="canal-obj" src="assets/wide_canal_v2.obj"></a-asset-item>
+      <a-asset-item id="canal-mtl" src="assets/wide_canal_v2.mtl"></a-asset-item>
       
       <!-- table asset -->
       <a-asset-item id="table-obj" src="assets/foldable_table.obj"></a-asset-item>
@@ -24,7 +24,7 @@
     </a-assets>
 
     <!-- camera -->
-    <a-camera id="js--camera">
+    <!-- <a-camera id="js--camera">
 
       <a-entity
         animation__click="property: scale; startEvents: click; easing: easeInCubic; dur: 150; from: 0.1 0.1 0.1; to: 1 1 1"
@@ -39,7 +39,7 @@
         position = "0 0 -0.5"
         raycaster = "objects: .js--place, .js--canvas, .js--color, #lefthand, #righthand">
       </a-entity>
-    </a-camera>
+    </a-camera> -->
 
     <!-- oculus hands -->
     <a-entity id="leftHand" hand-controls="hand: left; handModelStyle: lowPoly; color: #ffcccc"></a-entity>
@@ -57,7 +57,7 @@
     <a-sky src="images/sky.jpg" rotation="0 -90 0"></a-sky>
     
     <!-- objects -->
-    <a-entity id="table" obj-model="obj: #table-obj; mtl: #table-mtl" scale=".8 .8 .8" position="1 .2 2" rotation="0 -75 0"></a-entity>
+    <a-entity id="table" obj-model="obj: #table-obj; mtl: #table-mtl" scale=".8 .8 .8" position="1 .1 2" rotation="0 -75 0"></a-entity>
 
     <!-- audio -->
 
