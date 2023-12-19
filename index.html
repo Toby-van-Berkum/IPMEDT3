@@ -13,8 +13,13 @@
 
     <!-- blender assets -->
     <a-assets>
+      <!-- scenery asset -->
       <a-asset-item id="canal-obj" src="assets/canalV1.obj"></a-asset-item>
       <a-asset-item id="canal-mtl" src="assets/canalV1.mtl"></a-asset-item>
+      
+      <!-- table asset -->
+      <a-asset-item id="table-obj" src="assets/foldable_table.obj"></a-asset-item>
+      <a-asset-item id="table-mtl" src="assets/foldable_table.mtl"></a-asset-item>
     </a-assets>
 
     <!-- camera -->
@@ -27,8 +32,6 @@
 
         animation="property: scale; startEvents: mouseleave; easing: easeInCubic; dur: 500; to: 1 1 1"
 
-
-
         cursor = "fuse: true; fuseTimeout: 2000"
         material = "color: black; shader: flat"
         geometry = "primitive: ring; radiusInner: 0.007; radiusOuter: 0.01"
@@ -36,13 +39,14 @@
         raycaster = "objects: .js--place, .js--canvas, .js--color, #lefthand, #righthand">
       </a-entity>
     </a-camera>
+
+    <!-- oculus hands -->
     <a-entity id="leftHand" hand-controls="hand: left; handModelStyle: lowPoly; color: #ffcccc"></a-entity>
     <a-entity id="rightHand" hand-controls="hand: right; handModelStyle: lowPoly; color: #ffcccc"></a-entity>   
 
     <!-- scenery -->
-    <a-entity obj-model="obj: #canal-obj; mtl: #canal-mtl" scale="50 50 50" position="-6 -1 -8" rotation="0 0 0" shadow></a-entity>
-
-    <a-plane color="blue" position="0 -3 -7" width="1000" height="1000" rotation="-90 0 0" shadow material="metalness: 0.1; roughness: 0;"></a-plane>
+    <a-entity obj-model="obj: #canal-obj; mtl: #canal-mtl" scale="40 40 40" position="-5 0 -4" rotation="0 0 0" shadow></a-entity>
+    <a-plane color="blue" position="0 -2.5 -7" width="1000" height="1000" rotation="-90 0 0" shadow material="metalness: 0.1; roughness: 0;"></a-plane>
 
     <!-- lighting --> 
     <!-- <a-entity light="type: ambient; color: #fcffc7"></a-entity>
@@ -51,9 +55,10 @@
     <!-- sky -->
     <a-sky src="images/sky.jpg" rotation="0 -90 0"></a-sky>
     
+    <!-- objects -->
+    <a-entity id="table" obj-model="obj: #table-obj; mtl: #table-mtl" scale=".8 .8 .8" position="1 .2 2" rotation="0 -75 0"></a-entity>
 
     <!-- audio -->
-
 
     <!-- a frame positions are x y z aka width height depth -->
 
