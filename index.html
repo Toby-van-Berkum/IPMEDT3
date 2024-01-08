@@ -4,8 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
-  <script src="https://cdn.rawgit.com/donmccurdy/aframe-extras/v6.1.0/dist/aframe-extras.min.js"></script>
+  <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.misc.min.js"></script>
+  <script src="https://unpkg.com/super-hands@%5E3.0.4/dist/super-hands.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/n5ro/aframe-physics-system@v4.0.1/dist/aframe-physics-system.min.js"></script>
+
   <script src="javascript/main.js"></script>
   <title>(WOP) Fishing Game</title>
 </head>
@@ -23,46 +26,45 @@
       <a-asset-item id="table-mtl" src="assets/foldable_table.mtl"></a-asset-item>
     </a-assets>
 
-    <!-- camera -->
-    <!-- <a-camera id="js--camera">
-
-      <a-entity
-        animation__click="property: scale; startEvents: click; easing: easeInCubic; dur: 150; from: 0.1 0.1 0.1; to: 1 1 1"
-
-        animation__fusing="property: scale; startEvents: fusing; easing: easeInCubic; dur: 2000; from: 1 1 1; to: 0.1 0.1 0.1"
-
-        animation="property: scale; startEvents: mouseleave; easing: easeInCubic; dur: 500; to: 1 1 1"
-
-        cursor = "fuse: true; fuseTimeout: 2000"
-        material = "color: black; shader: flat"
-        geometry = "primitive: ring; radiusInner: 0.007; radiusOuter: 0.01"
-        position = "0 0 -0.5"
-        raycaster = "objects: .js--place, .js--canvas, .js--color, #lefthand, #righthand">
-      </a-entity>
-    </a-camera> -->
+    <a-camera
+    universal-controls
+    ></a-camera>
 
     <!-- oculus hands -->
-    <a-entity id="leftHand" hand-controls="hand: left; handModelStyle: lowPoly; color: #ffcccc"></a-entity>
-    <a-entity id="rightHand" hand-controls="hand: right; handModelStyle: lowPoly; color: #ffcccc"></a-entity>   
+    <a-entity
+        id="leftHand"
+        hand-controls="hand: left; handModelStyle: lowPoly; color: #ffcccc"
+        super-hands
+        sphere-collider="objects: a-box;"
+        static-body="shape: sphere; sphereRadius: 0.02"
+      ></a-entity>
+    <a-entity
+        id="rightHand"
+        hand-controls="hand: right; handModelStyle: lowPoly; color: #ffcccc"
+        super-hands
+        sphere-collider="objects: a-box;"
+        static-body="shape: sphere; sphereRadius: 0.02"
+      ></a-entity>   
 
     <!-- scenery -->
-    <a-entity obj-model="obj: #canal-obj; mtl: #canal-mtl" scale="40 40 40" position="-5 0 -4" rotation="0 0 0" shadow></a-entity>
+    <a-entity obj-model="obj: #canal-obj; mtl: #canal-mtl" scale="40 40 40" position="-5 0 -4" rotation="0 0 0" material="metalness: 0.1; roughness: 10;"></a-entity>
     <a-plane color="blue" position="0 -2.5 -7" width="1000" height="1000" rotation="-90 0 0" shadow material="metalness: 0.1; roughness: 0;"></a-plane>
 
     <!-- lighting --> 
-    <!-- <a-entity light="type: ambient; color: #BBB"></a-entity>
-    <a-entity light="type: directional; castShadow: true; color: #FFF; intensity: 0.6" position="-0.5 1 1"></a-entity> -->
+    <a-entity light="type: ambient; color: #BBBBBB"></a-entity>
+    <a-entity light="type: directional; castShadow: true; color: #FFFFFF; intensity: 0.6" position="-0.5 1 1"></a-entity>
+    <a-entity light="type: directional; castShadow: true; color: #FFFFFF; intensity: 0.6" position="0.5 1 -1"></a-entity>
+    
 
     <!-- sky -->
     <a-sky src="images/sky.jpg" rotation="0 -90 0"></a-sky>
     
     <!-- objects -->
-    <a-entity id="table" obj-model="obj: #table-obj; mtl: #table-mtl" scale=".8 .8 .8" position="1 .1 2" rotation="0 -75 0"></a-entity>
-
+    <a-entity id="table" obj-model="obj: #table-obj; mtl: #table-mtl" scale=".8 .8 .8" position="1 .1 2" rotation="0 -75 0" grabbable></a-entity>
+    <a-box id="a-box" scale=".8 .8 .8" position="0 1 -1.5" grabbable></a-box>
     <!-- audio -->
 
     <!-- a frame positions are x y z aka width height depth -->
-
   </a-scene>
 </body>
 </html>
