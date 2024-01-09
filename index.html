@@ -26,42 +26,43 @@
       <a-asset-item id="table-mtl" src="assets/foldable_table.mtl"></a-asset-item>
     </a-assets>
 
-    <a-camera
-      universal-controls
-    ></a-camera>
+    <!-- camera rig -->
+    <a-entity id="cameraRig" thumbstick-logging>
+      <a-camera></a-camera>
 
-    <!-- oculus hands -->
-    <a-entity
+          <!-- oculus hands -->
+      <a-entity
         id="leftHand"
         hand-controls="hand: left; handModelStyle: lowPoly; color: #ffcccc"
         super-hands
         sphere-collider="objects: a-box;"
         static-body="shape: sphere; sphereRadius: 0.02"
       ></a-entity>
-    <a-entity
-        id="rightHand"
-        hand-controls="hand: right; handModelStyle: lowPoly; color: #ffcccc"
-        super-hands
-        sphere-collider="objects: a-box;"
-        static-body="shape: sphere; sphereRadius: 0.02"
-      ></a-entity>   
+      <a-entity
+          id="rightHand"
+          hand-controls="hand: right; handModelStyle: lowPoly; color: #ffcccc"
+          super-hands
+          sphere-collider="objects: .box-thing;"
+          static-body="shape: sphere; sphereRadius: 0.02"
+      ></a-entity>
+      
+    </a-entity>
+     
 
     <!-- scenery -->
     <a-entity obj-model="obj: #canal-obj; mtl: #canal-mtl" scale="40 40 40" position="-5 0 -4" rotation="0 0 0" material="metalness: 0.1; roughness: 10;"></a-entity>
     <a-plane color="blue" position="0 -2.5 -7" width="1000" height="1000" rotation="-90 0 0" shadow material="metalness: 0.1; roughness: 0;"></a-plane>
-
-    <!-- lighting --> 
-    <!-- <a-entity light="type: ambient; color: #BBBBBB"></a-entity>
-    <a-entity light="type: directional; castShadow: true; color: #FFFFFF; intensity: 0.6" position="-0.5 1 1"></a-entity>
-    <a-entity light="type: directional; castShadow: true; color: #FFFFFF; intensity: 0.6" position="0.5 1 -1"></a-entity> -->
     
 
     <!-- sky -->
     <a-sky src="images/sky.jpg" rotation="0 -90 0"></a-sky>
     
+
     <!-- objects -->
     <a-entity id="table" obj-model="obj: #table-obj; mtl: #table-mtl" scale=".8 .8 .8" position="1 .1 2" rotation="0 -75 0" grabbable></a-entity>
-    <a-box id="a-box" scale=".8 .8 .8" position="0 1 -1.5" grabbable></a-box>
+    <a-box id="box-thing" scale=".8 .8 .8" position="0 1 -1.5" grabbable></a-box>
+
+
     <!-- audio -->
 
     <!-- a frame positions are x y z aka width height depth -->
