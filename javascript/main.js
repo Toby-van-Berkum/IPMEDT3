@@ -8,7 +8,7 @@ window.onload = () => {
       movePlayer: function (evt) {
         // Adjust the player's position based on thumbstick movement
         const cameraRig = this.el;
-        const speed = 0.01; // Adjust the speed as needed
+        const speed = 0.02; // Adjust the speed as needed
 
         const newPosition = {
           x: cameraRig.getAttribute('position').x + evt.detail.x * speed,
