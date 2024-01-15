@@ -35,6 +35,8 @@
       <!-- table asset -->
       <a-asset-item id="table-obj" src="assets/foldable_table.obj"></a-asset-item>
       <a-asset-item id="table-mtl" src="assets/foldable_table.mtl"></a-asset-item>
+
+      <a-asset-item id="rod" src="assets/rod.gltf"></a-asset-item>
     </a-assets>
 
     <!-- camera rig -->
@@ -82,6 +84,7 @@
     <a-entity static-body id="table" obj-model="obj: #table-obj; mtl: #table-mtl" scale=".8 .8 .8" position="1 .1 2" rotation="0 -75 0"></a-entity>
     <a-box dynamic-body grabbable id="box-thing" scale=".8 .8 .8" position="1 5 -1.5"></a-box>
     <a-box dynamic-body grabbable id="box-thing2" scale=".8 .8 .8" position="-1 5 -1.5"></a-box>
+    <a-entity gltf-model="#rod" dynamic-body grabbable position="0 1 -1.8" rotation="0 0 0"></a-entity>
 
     <!-- audio -->
 
