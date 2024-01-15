@@ -1,16 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fishing VR</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+  <!-- A-frame script -->
+  <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+
+  <!-- additional A-frames scripts -->
+  <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.misc.min.js"></script>
+  <script src="https://unpkg.com/super-hands@%5E3.0.4/dist/super-hands.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/n5ro/aframe-physics-system@v4.0.1/dist/aframe-physics-system.min.js"></script>
+
+  <!-- own scripts -->
+  <script src="javascript/main.js"></script>
+
+  <title>(WIP) Fishing Game</title>
 </head>
 <body>
-    <a-scene>
-        <a-plane position="0 0 -4" rotation="-90 0 0" width="4" height="4" color="#7BC8A4"></a-plane>
-        <a-sphere position="0 1.25 -5" radius="1.25" color="#EF2D5E"></a-sphere>
-        <a-sky color="#ECECED"></a-sky>
-    </a-scene>
+  <a-scene renderer="	antialias: true;
+											sortObjects: true;
+											physicallyCorrectLights: false;
+											foveationLevel: true;">
+    <!-- blender assets -->
+    <a-assets>
+      <!-- scenery asset -->
+      <a-asset-item id="canal-obj" src="assets/wide_canal_bright.obj"></a-asset-item>
+      <a-asset-item id="canal-mtl" src="assets/wide_canal_bright.mtl"></a-asset-item>
+      
+      <!-- table asset -->
+      <a-asset-item id="table-obj" src="assets/foldable_table.obj"></a-asset-item>
+      <a-asset-item id="table-mtl" src="assets/foldable_table.mtl"></a-asset-item>
+    </a-assets>
+
+    <!-- camera rig -->
+    <a-entity id="cameraRig" thumbstick-logging>
+      <a-camera></a-camera>
+
+          <!-- oculus hands -->
+      <a-entity
+        id="leftHand"
+        hand-controls="hand: left; handModelStyle: lowPoly; color: #ffcccc"
+        super-hands
+        sphere-collider="objects: a-box;"
+        static-body="shape: sphere; sphereRadius: 0.02"
+      ></a-entity>
+      <a-entity
+          id="rightHand"
+          hand-controls="hand: right; handModelStyle: lowPoly; color: #ffcccc"
+          super-hands
+          sphere-collider="objects: a-box;"
+          static-body="shape: sphere; sphereRadius: 0.02"
+      ></a-entity>
+    </a-entity>
+     
+
+    <!-- scenery -->
+    <a-entity obj-model="obj: #canal-obj; mtl: #canal-mtl" scale="40 40 40" position="-5 0 -4" rotation="0 0 0" material="metalness: 0.1; roughness: 10;"></a-entity>
+    <a-plane static-body color="blue" position="0 -2.5 -7" width="1000" height="1000" rotation="-90 0 0" shadow material="metalness: 0.1; roughness: 0;"></a-plane>
+
+    <!-- physics planes -->
+    <a-plane static-body visible="false" position="-.1 0 1.5" width="4.5" height="8" rotation="-90 0 0"></a-plane>
+    
+
+    <!-- sky -->
+    <a-sky src="images/sky.jpg" rotation="0 -90 0"></a-sky>
+    
+
+    <!-- objects -->
+    <a-entity static-body id="table" obj-model="obj: #table-obj; mtl: #table-mtl" scale=".8 .8 .8" position="1 .1 2" rotation="0 -75 0"></a-entity>
+    <a-box dynamic-body grabbable id="box-thing" scale=".8 .8 .8" position="1 5 -1.5"></a-box>
+    <a-box dynamic-body grabbable id="box-thing2" scale=".8 .8 .8" position="-1 5 -1.5"></a-box>
+
+    <!-- audio -->
+
+    <!-- a frame positions are x y z aka width height depth -->
+  </a-scene>
 </body>
 </html>
