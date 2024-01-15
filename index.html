@@ -15,6 +15,7 @@
 
   <!-- own scripts -->
   <script src="javascript/main.js"></script>
+  <script src="javascript/waves.js"></script>
 
   <title>(WIP) Fishing Game</title>
 </head>
@@ -55,11 +56,18 @@
           static-body="shape: sphere; sphereRadius: 0.02"
       ></a-entity>
     </a-entity>
-     
+
 
     <!-- scenery -->
     <a-entity obj-model="obj: #canal-obj; mtl: #canal-mtl" scale="40 40 40" position="-5 0 -4" rotation="0 0 0" material="metalness: 0.1; roughness: 10;"></a-entity>
-    <a-plane static-body color="blue" position="0 -2.5 -7" width="1000" height="1000" rotation="-90 0 0" shadow material="metalness: 0.1; roughness: 0;"></a-plane>
+    <!-- <a-plane static-body color="blue" position="0 -2.5 -7" width="1000" height="1000" rotation="-90 0 0" shadow material="metalness: 0.1; roughness: 0;"></a-plane> -->
+    <a-entity
+    static-body
+    id="ocean-box-1"
+    position="0 -1.5 -7"
+    shadow=""
+    ocean-box-component="size: 160 1 30"
+  ></a-entity>
 
     <!-- physics planes -->
     <a-plane static-body visible="false" position="-.1 0 1.5" width="4.5" height="8" rotation="-90 0 0"></a-plane>
