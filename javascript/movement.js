@@ -1,4 +1,6 @@
 window.onload = () => {
+
+  //movement
     cameraRig.setAttribute('position', { x: 0, y: -0.2, z: 0 }); 
 
     AFRAME.registerComponent('thumbstick-logging', {
@@ -19,4 +21,5 @@ window.onload = () => {
         cameraRig.setAttribute('position', newPosition);
       }
     });
+
   };
