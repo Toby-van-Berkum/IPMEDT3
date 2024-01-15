@@ -1,4 +1,4 @@
-window.onload = () => {
+document.addEventListener('DOMcontentLoaded', () => {
 
    //physics
     AFRAME.registerComponent('phase-shift', {
@@ -12,4 +12,4 @@ window.onload = () => {
           })
         }
       });
-}
+    });
