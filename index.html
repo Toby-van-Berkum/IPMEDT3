@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
+  <link rel="icon" href="data:,">
+
   <!-- A-frame script -->
   <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
 
@@ -60,7 +62,7 @@
         rotation="10 0 0"
       >
       <a-entity obj-model="obj: #fishing_rod-obj; mtl: #fishing_rod-mtl" position="0 -.3 0" visible="true" class="interactable" rotation="0 90 0" scale=".8 .8 .8">
-        <a-cylinder id="fishing-rod" static-body position="0 1.8 0" radius="0.01" height="3.7" color="red" class="interactable" visible="false"></a-cylinder>
+        <a-cylinder id="fishing-rod" static-body radius="0.01" position="0 1.8 0" height="3.7" color="red" class="interactable" visible="false"></a-cylinder>
       </a-entity>
     </a-entity>
     </a-entity>
@@ -80,15 +82,14 @@
     <!-- physics planes -->
     <a-plane static-body visible="false" position="-.1 0 1.5" width="4.5" height="8" rotation="-90 0 0"></a-plane>
     
-
     <!-- sky -->
     <a-sky src="images/sky.jpg" rotation="0 -90 0"></a-sky>
     
 
     <!-- objects -->
     <a-entity static-body id="table" obj-model="obj: #table-obj; mtl: #table-mtl" scale=".8 .8 .8" position="1 .1 2" rotation="0 -75 0"></a-entity>
-    <a-box static-body id="hitbox-front" width="3" depth=".5" height=".5" position="0 1.5 -1" class="interactable" color="red"></a-box>
-    <a-box static-body id="hitbox-behind" width="3" depth=".8" height=".8" position="0 2.5 2" class="interactable" color="red"></a-box>
+    <a-box static-body id="hitbox-front" width="3" depth=".5" height=".5" class="interactable" color="red"></a-box>
+    <a-box static-body id="hitbox-behind" width="3" depth=".8" height=".8" class="interactable" color="red"></a-box>
 
     <!-- audio -->
 
