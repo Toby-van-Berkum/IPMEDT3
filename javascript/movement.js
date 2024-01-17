@@ -1,4 +1,4 @@
-window.onload = () => {
+document.addEventListener('DOMcontentLoaded', () => {
 
   //movement
     cameraRig.setAttribute('position', { x: 0, y: -0.2, z: 0 }); 
@@ -22,4 +22,4 @@ window.onload = () => {
       }
     });
 
-  };
+  });
