@@ -57,10 +57,10 @@
         hand-controls="hand: right; handModelStyle: lowPoly; color: #ffcccc"
         sphere-collider="objects: .interactable;"
         static-body="shape: sphere; sphereRadius: 0.02"
-        gripdown
+        rotation="10 0 0"
       >
-      <a-entity id="fishing_rod" obj-model="obj: #fishing_rod-obj; mtl: #fishing_rod-mtl" position="0 -.3 0" visible="true" class="interactable" rotation="0 90 0" scale=".8 .8 .8">
-        <a-cylinder static-body position="0 1.8 0" rotation="0 0 0" radius="0.01" height="3.7" color="red" class="interactable" visible="false"></a-cylinder>
+      <a-entity obj-model="obj: #fishing_rod-obj; mtl: #fishing_rod-mtl" position="0 -.3 0" visible="true" class="interactable" rotation="0 90 0" scale=".8 .8 .8">
+        <a-cylinder id="fishing-rod" static-body position="0 1.8 0" radius="0.01" height="3.7" color="red" class="interactable" visible="false"></a-cylinder>
       </a-entity>
     </a-entity>
     </a-entity>
@@ -87,8 +87,8 @@
 
     <!-- objects -->
     <a-entity static-body id="table" obj-model="obj: #table-obj; mtl: #table-mtl" scale=".8 .8 .8" position="1 .1 2" rotation="0 -75 0"></a-entity>
-    <a-box static-body id="box-thing" width="3" depth=".5" height=".5" position="0 1 -1" class="interactable" color="red"></a-box>
-    <a-box static-body id="box-thing2" width="3" depth=".8" height=".8" position="0 3 2" class="interactable" color="red"></a-box>
+    <a-box static-body id="hitbox-front" width="3" depth=".5" height=".5" position="0 1.5 -1" class="interactable" color="red"></a-box>
+    <a-box static-body id="hitbox-behind" width="3" depth=".8" height=".8" position="0 2.5 2" class="interactable" color="red"></a-box>
 
     <!-- audio -->
 
