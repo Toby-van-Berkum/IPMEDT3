@@ -36,6 +36,7 @@
       <a-asset-item id="table-obj" src="assets/foldable_table.obj"></a-asset-item>
       <a-asset-item id="table-mtl" src="assets/foldable_table.mtl"></a-asset-item>
 
+      <!-- fishing rod asset -->
       <a-asset-item id="rod" src="assets/rod.gltf"></a-asset-item>
     </a-assets>
 
@@ -52,12 +53,16 @@
         static-body="shape: sphere; sphereRadius: 0.02"
       ></a-entity>
       <a-entity
-          id="rightHand"
-          hand-controls="hand: right; handModelStyle: lowPoly; color: #ffcccc"
-          super-hands
-          sphere-collider="objects: a-box;"
-          static-body="shape: sphere; sphereRadius: 0.02"
-      ></a-entity>
+        id="rightHand"
+        hand-controls="hand: right; handModelStyle: lowPoly; color: #ffcccc"
+        sphere-collider="objects: .interactable;"
+        static-body="shape: sphere; sphereRadius: 0.02"
+        gripdown
+      >
+      <a-entity gltf-model="#rod" position="0 -.3 0" visible="true" class="interactable" rotation="0 90 0" scale=".8 .8 .8">
+        <a-cylinder static-body position="0 1.8 0" rotation="0 0 0" radius="0.01" height="3.7" color="red" class="interactable" visible="false"></a-cylinder>
+      </a-entity>
+    </a-entity>
     </a-entity>
 
 
@@ -65,12 +70,12 @@
     <a-entity obj-model="obj: #canal-obj; mtl: #canal-mtl" scale="40 40 40" position="-5 0 -4" rotation="0 0 0" material="metalness: 0.1; roughness: 10;"></a-entity>
     <!-- <a-plane static-body color="blue" position="0 -2.5 -7" width="1000" height="1000" rotation="-90 0 0" shadow material="metalness: 0.1; roughness: 0;"></a-plane> -->
     <a-entity
-    static-body
-    id="ocean-box-1"
-    position="0 -1.5 -7"
-    shadow=""
-    ocean-box-component="size: 160 1 30"
-  ></a-entity>
+      static-body
+      id="ocean-box-1"
+      position="0 -1.5 -7"
+      shadow=""
+      ocean-box-component="size: 160 1 40"
+    ></a-entity>
 
     <!-- physics planes -->
     <a-plane static-body visible="false" position="-.1 0 1.5" width="4.5" height="8" rotation="-90 0 0"></a-plane>
@@ -82,9 +87,8 @@
 
     <!-- objects -->
     <a-entity static-body id="table" obj-model="obj: #table-obj; mtl: #table-mtl" scale=".8 .8 .8" position="1 .1 2" rotation="0 -75 0"></a-entity>
-    <a-box dynamic-body grabbable id="box-thing" scale=".8 .8 .8" position="1 5 -1.5"></a-box>
-    <a-box dynamic-body grabbable id="box-thing2" scale=".8 .8 .8" position="-1 5 -1.5"></a-box>
-    <a-entity gltf-model="#rod" dynamic-body grabbable position="0 1 -1.8" rotation="0 0 0"></a-entity>
+    <a-box static-body id="box-thing" width="3" depth=".5" height=".5" position="0 1 -1" class="interactable" color="red"></a-box>
+    <a-box static-body id="box-thing2" width="3" depth=".8" height=".8" position="0 3 2" class="interactable" color="red"></a-box>
 
     <!-- audio -->
 
