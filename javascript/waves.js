@@ -55,7 +55,6 @@ AFRAME.registerComponent("ocean-box-component", {
       },
       transparent: true,
       opacity: 0.8,
-      receiveShadow: true
     });
 
     const geometry = new THREE.BoxGeometry(
@@ -71,28 +70,23 @@ AFRAME.registerComponent("ocean-box-component", {
     this.el.setObject3D("mesh", mesh);
   },
   tick: function (time, delta) {
-    this.el.getObject3D("mesh").material.uniforms.time.value +=
-      delta / 1000;
+    this.el.getObject3D("mesh").material.uniforms.time.value += delta / 1000;
   },
   update: function (oldData) {
     if (oldData.color !== this.data.color) {
-      this.el.getObject3D("mesh").material.uniforms.colorA.value =
-        new THREE.Color(this.data.color);
+      this.el.getObject3D("mesh").material.uniforms.colorA.value.set(this.data.color);
     }
 
     if (oldData.amp !== this.data.amp) {
-      this.el.getObject3D("mesh").material.uniforms.amp.value =
-        this.data.amp;
+      this.el.getObject3D("mesh").material.uniforms.amp.value = this.data.amp;
     }
 
     if (oldData.frequency !== this.data.frequency) {
-      this.el.getObject3D("mesh").material.uniforms.frequency.value =
-        this.data.frequency;
+      this.el.getObject3D("mesh").material.uniforms.frequency.value = this.data.frequency;
     }
 
     if (oldData.speed !== this.data.speed) {
-      this.el.getObject3D("mesh").material.uniforms.speed.value =
-        this.data.speed;
+      this.el.getObject3D("mesh").material.uniforms.speed.value = this.data.speed;
     }
 
     if (

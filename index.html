@@ -17,8 +17,9 @@
 
   <!-- own scripts -->
   <script src="javascript/movement.js"></script>
-  <script src="javascript/physics.js"></script>
+  <!-- <script src="javascript/physics.js"></script> -->
   <script src="javascript/waves.js"></script>
+  <script src="javascript/collision.js"></script>
 
   <title>(WIP) Fishing Game</title>
 </head>
@@ -31,15 +32,25 @@
     <!-- blender assets -->
     <a-assets>
       <!-- scenery asset -->
-      <a-asset-item id="canal-obj" src="assets/wide_canal_bright.obj"></a-asset-item>
-      <a-asset-item id="canal-mtl" src="assets/wide_canal_bright.mtl"></a-asset-item>
+      <a-asset-item id="canal-obj" src="assets/object/wide_canal_bright.obj"></a-asset-item>
+      <a-asset-item id="canal-mtl" src="assets/object/wide_canal_bright.mtl"></a-asset-item>
       
       <!-- table asset -->
-      <a-asset-item id="table-obj" src="assets/foldable_table.obj"></a-asset-item>
-      <a-asset-item id="table-mtl" src="assets/foldable_table.mtl"></a-asset-item>
+      <a-asset-item id="table-obj" src="assets/object/foldable_table.obj"></a-asset-item>
+      <a-asset-item id="table-mtl" src="assets/object/foldable_table.mtl"></a-asset-item>
 
-      <a-asset-item id="fishing_rod-obj" src="assets/rod.obj"></a-asset-item>
-      <a-asset-item id="fishing_rod-mtl" src="assets/rod.mtl"></a-asset-item>
+      <a-asset-item id="fishing_rod-obj" src="assets/object/rod.obj"></a-asset-item>
+      <a-asset-item id="fishing_rod-mtl" src="assets/object/rod.mtl"></a-asset-item>
+
+      <a-asset-item id="dobber-obj" src="assets/object/dobber.obj"></a-asset-item>
+      <a-asset-item id="dobber-mtl" src="assets/object/dobber.mtl"></a-asset-item>
+
+      <a-asset-item id="snoek-obj" src="assets/object/snoek.obj"></a-asset-item>
+      <a-asset-item id="snoek-mtl" src="assets/object/snoek.mtl"></a-asset-item>
+
+      <!-- sound assets-->
+      <sound id="sound_river" src="/assets/sound/ambience_river.mp3"></sound>
+      <sound id="sound_wind" src="/assets/sound/ambience_wind.mp3"></sound>
     </a-assets>
 
     <!-- camera rig -->
@@ -61,37 +72,41 @@
         static-body="shape: sphere; sphereRadius: 0.02"
         rotation="10 0 0"
       >
-      <a-entity obj-model="obj: #fishing_rod-obj; mtl: #fishing_rod-mtl" position="0 -.3 0" visible="true" class="interactable" rotation="0 90 0" scale=".8 .8 .8">
-        <a-cylinder id="fishing-rod" static-body radius="0.01" position="0 1.8 0" height="3.7" color="red" class="interactable" visible="false"></a-cylinder>
+        <a-entity id="fishing-rod" dynamic-body obj-model="obj: #fishing_rod-obj; mtl: #fishing_rod-mtl" position="0 -.3 0" visible="true" class="interactable" rotation="0 90 0" raycaster="objects: .check-area" scale=".8 .8 .8">
       </a-entity>
     </a-entity>
     </a-entity>
 
 
     <!-- scenery -->
-    <a-entity obj-model="obj: #canal-obj; mtl: #canal-mtl" scale="40 40 40" position="-5 0 -4" rotation="0 0 0" material="metalness: 0.1; roughness: 10;"></a-entity>
-    <!-- <a-plane static-body color="blue" position="0 -2.5 -7" width="1000" height="1000" rotation="-90 0 0" shadow material="metalness: 0.1; roughness: 0;"></a-plane> -->
+    <a-entity obj-model="obj: #canal-obj; mtl: #canal-mtl" scale="40 40 40" position="-5 0 -4" rotation="0 0 0"></a-entity>
     <a-entity
       static-body
       id="ocean-box-1"
       position="0 -1.5 -7"
       shadow=""
-      ocean-box-component="size: 160 1 40"
+      ocean-box-component="size: 120 1 40"
     ></a-entity>
 
     <!-- physics planes -->
     <a-plane static-body visible="false" position="-.1 0 1.5" width="4.5" height="8" rotation="-90 0 0"></a-plane>
     
     <!-- sky -->
-    <a-sky src="images/sky.jpg" rotation="0 -90 0"></a-sky>
+    <a-sky src="img/sky.jpg" rotation="0 -90 0"></a-sky>
     
 
     <!-- objects -->
     <a-entity static-body id="table" obj-model="obj: #table-obj; mtl: #table-mtl" scale=".8 .8 .8" position="1 .1 2" rotation="0 -75 0"></a-entity>
-    <a-box static-body id="hitbox-front" width="3" depth=".5" height=".5" class="interactable" color="red"></a-box>
-    <a-box static-body id="hitbox-behind" width="3" depth=".8" height=".8" class="interactable" color="red"></a-box>
+    <a-box static-body class="check-area" id="hitbox-front" width="3" depth=".5" height=".5" position="0 1.5 -1" color="red"></a-box>
+    <a-box static-body class="check-area" id="hitbox-behind" width="3" depth=".8" height=".8" position="0 2.5 2" color="red"></a-box>
+
+    <!-- <a-box dynamic-body id="dummy" width="0.1" height="0.1" depth="0.1" position="0 3 -1" color="purple"></a-box> -->
+
+    <!-- <a-entity dynamic-body id="dobber" obj-model="obj: #dobber-obj; mtl: #dobber-mtl" position="0 2 -1"></a-entity> -->
 
     <!-- audio -->
+    <a-sound src="#sound_river" autoplay="false" loop="true" volume="0.3" spatialization="2d"></a-sound>
+    <a-sound src="#sound_wind" autoplay="false" loop="true" volume="0.3" spatialization="2d"></a-sound>
 
     <!-- a frame positions are x y z aka width height depth -->
   </a-scene>
