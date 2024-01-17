@@ -55,7 +55,6 @@ AFRAME.registerComponent("ocean-box-component", {
       },
       transparent: true,
       opacity: 0.8,
-      receiveShadow: true
     });
 
     const geometry = new THREE.BoxGeometry(
