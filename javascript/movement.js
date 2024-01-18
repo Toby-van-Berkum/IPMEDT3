@@ -1,4 +1,4 @@
-document.addEventListener('DOMcontentLoaded', () => {
+document.addEventListener('DOMContentLoaded', () => {
 
   //movement
     cameraRig.setAttribute('position', { x: 0, y: -0.2, z: 0 }); 
