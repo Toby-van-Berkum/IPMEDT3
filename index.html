@@ -62,18 +62,17 @@
         id="leftHand"
         hand-controls="hand: left; handModelStyle: lowPoly; color: #ffcccc"
         super-hands
-        sphere-collider="objects: a-box;"
+        sphere-collider="objects: .interactable;"
         static-body="shape: sphere; sphereRadius: 0.02"
       ></a-entity>
       <a-entity
         id="rightHand"
         hand-controls="hand: right; handModelStyle: lowPoly; color: #ffcccc"
+        super-hands
         sphere-collider="objects: .interactable;"
         static-body="shape: sphere; sphereRadius: 0.02"
         rotation="10 0 0"
       >
-        <a-entity id="fishing-rod" dynamic-body obj-model="obj: #fishing_rod-obj; mtl: #fishing_rod-mtl" position="0 -.3 0" class="interactable" rotation="0 90 0" raycaster="objects: .check-area" scale=".8 .8 .8">
-      </a-entity>
     </a-entity>
     </a-entity>
 
@@ -84,7 +83,6 @@
       static-body
       id="ocean-box-1"
       position="0 -1.5 -7"
-      shadow=""
       ocean-box-component="size: 120 1 40"
     ></a-entity>
 
@@ -97,11 +95,14 @@
 
     <!-- objects -->
     <a-entity static-body id="table" obj-model="obj: #table-obj; mtl: #table-mtl" scale=".8 .8 .8" position="1 .1 2" rotation="0 -75 0"></a-entity>
-    <a-box static-body class="check-area" id="hitbox-front" width="3" depth=".5" height=".5" position="0 1.5 -1" color="red"></a-box>
-    <a-box static-body class="check-area" id="hitbox-behind" width="3" depth=".8" height=".8" position="0 2.5 2" color="red"></a-box>
+    <a-box class="check-area" id="hitbox-front" width="3" depth=".5" height=".5" position="0 1.5 -1" color="red" visible="true"></a-box>
+    <a-box class="check-area" id="hitbox-behind" width="3" depth=".8" height=".8" position="0 2.5 2" color="red" visible="true"></a-box>
 
-    <!-- <a-box dynamic-body id="dummy" width="0.1" height="0.1" depth="0.1" position="0 3 -1" color="purple"></a-box> -->
+    <a-box dynamic-body id="dummy" class="interactable" width="0.1" height="0.1" depth="0.1" position="0 3 -1" color="purple" grabbable></a-box>
 
+    <a-entity dynamic-body id="fishing-rod" class="interactable" obj-model="obj: #fishing_rod-obj; mtl: #fishing_rod-mtl" position="0 -.3 0" visible="true" rotation="0 90 0" raycaster="objects: .check-area; far: 3.5; showLine: true; direction: 0 1 0" grabbable collision-check>
+    </a-entity>
+    
     <!-- <a-entity dynamic-body id="dobber" obj-model="obj: #dobber-obj; mtl: #dobber-mtl" position="0 2 -1"></a-entity> -->
 
     <!-- audio -->
