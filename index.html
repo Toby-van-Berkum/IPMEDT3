@@ -23,7 +23,7 @@
 </head>
 
 <body>
-  <a-scene renderer="	antialias: true;
+  <a-scene physics="debug: true" renderer="	antialias: true;
 											sortObjects: true;
 											physicallyCorrectLights: false;
 											foveationLevel: true;">
@@ -47,8 +47,7 @@
       <a-asset-item id="snoek-mtl" src="assets/object/snoek.mtl"></a-asset-item>
 
       <!-- sound assets-->
-      <sound id="sound_river" src="/assets/sound/ambience_river.mp3"></sound>
-      <sound id="sound_wind" src="/assets/sound/ambience_wind.mp3"></sound>
+      <sound id="ambience" src="/assets/sound/ambience.wav"></sound>
     </a-assets>
 
     <!-- camera rig -->
@@ -99,14 +98,13 @@
 
     <a-box dynamic-body id="dummy" class="interactable" width="0.1" height="0.1" depth="0.1" position="0 3 -1" color="purple" grabbable></a-box>
 
-    <a-entity dynamic-body id="fishing-rod" class="interactable" obj-model="obj: #fishing_rod-obj; mtl: #fishing_rod-mtl" position="0 -.3 0" visible="true" rotation="0 90 0" raycaster="objects: .check-area; far: 3.5; showLine: true; direction: 0 1 0" grabbable collision-check>
+    <a-entity dynamic-body id="fishing-rod" class="interactable" obj-model="obj: #fishing_rod-obj; mtl: #fishing_rod-mtl" position="0 -.3 0" visible="true" raycaster="objects: .check-area; far: 3.5; showLine: true; direction: 0 1 0" grabbable="maxGrabbers: 1" collision-check>
     </a-entity>
     
     <!-- <a-entity dynamic-body id="dobber" obj-model="obj: #dobber-obj; mtl: #dobber-mtl" position="0 2 -1"></a-entity> -->
 
     <!-- audio -->
-    <a-sound src="#sound_river" autoplay="false" loop="true" volume="0.3" spatialization="2d"></a-sound>
-    <a-sound src="#sound_wind" autoplay="false" loop="true" volume="0.3" spatialization="2d"></a-sound>
+    <a-sound src="#ambience" autoplay="false" loop="true" volume="0.3" spatialization="2d"></a-sound>
 
     <!-- a frame positions are x y z aka width height depth -->
   </a-scene>
