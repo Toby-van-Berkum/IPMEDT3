@@ -68,11 +68,10 @@
       <a-entity
         id="rightHand"
         hand-controls="hand: right; handModelStyle: lowPoly; color: #ffcccc"
-        super-hands
-        sphere-collider="objects: .interactable;"
-        static-body="shape: sphere; sphereRadius: 0.02"
+
         rotation="10 0 0"
       >
+      <a-entity static-body id="fishing-rod" class="interactable" obj-model="obj: #fishing_rod-obj; mtl: #fishing_rod-mtl" position="0 -.3 0" visible="true" rotation="0 90 0" raycaster="objects: .check-area; far: 3.5; showLine: true; direction: 0 1 0" grabbable collision-check>
     </a-entity>
     </a-entity>
 
@@ -82,9 +81,10 @@
     <a-entity
       static-body
       id="ocean-box-1"
-      position="0 -1.5 -7"
+      position="0 -2 -20"
       ocean-box-component="size: 120 1 40"
     ></a-entity>
+    
 
     <!-- physics planes -->
     <a-plane static-body visible="false" position="-.1 0 1.5" width="4.5" height="8" rotation="-90 0 0"></a-plane>
@@ -100,14 +100,13 @@
 
     <a-box dynamic-body id="dummy" class="interactable" width="0.1" height="0.1" depth="0.1" position="0 3 -1" color="purple" grabbable></a-box>
 
-    <a-entity dynamic-body id="fishing-rod" class="interactable" obj-model="obj: #fishing_rod-obj; mtl: #fishing_rod-mtl" position="0 -.3 0" visible="true" rotation="0 90 0" raycaster="objects: .check-area; far: 3.5; showLine: true; direction: 0 1 0" grabbable collision-check>
     </a-entity>
     
     <!-- <a-entity dynamic-body id="dobber" obj-model="obj: #dobber-obj; mtl: #dobber-mtl" position="0 2 -1"></a-entity> -->
 
     <!-- audio -->
     <a-sound src="#sound_river" autoplay="false" loop="true" volume="0.3" spatialization="2d"></a-sound>
-    <a-sound src="#sound_wind" autoplay="false" loop="true" volume="0.3" spatialization="2d"></a-sound>
+    <a-sound src="#sound_wind"  autoplay="false" loop="true" volume="0.3" spatialization="2d"></a-sound>
 
     <!-- a frame positions are x y z aka width height depth -->
   </a-scene>

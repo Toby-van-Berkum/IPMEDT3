@@ -9,8 +9,12 @@ AFRAME.registerComponent('collision-check', {
 
     if (isIntersecting) {
       console.log('Fishing rod is inside the check area');
+      document.getElementById("hitbox-front").setAttribute("color", "green")
+      document.getElementById("hitbox-behind").setAttribute("color", "green")
     } else {
       console.log('Fishing rod is outside the check area');
+      document.getElementById("hitbox-behind").setAttribute("color", "red")
+      document.getElementById("hitbox-front").setAttribute("color", "red")
     }
   },
   handleIntersect: function (event) {
