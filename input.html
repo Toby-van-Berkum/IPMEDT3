@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.misc.min.js"></script>
+    <script src="https://unpkg.com/super-hands@%5E3.0.4/dist/super-hands.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/n5ro/aframe-physics-system@v4.0.1/dist/aframe-physics-system.min.js"></script>
+    <script>
+      AFRAME.registerComponent("radio", {
+        init: function () {
+          this.el.addEventListener("grab-start", (e) => {
+            if (e.detail.buttonEvent.type === "gripdown") {
+              e.detail.target.setAttribute("color", "green");
+            }
+            if (e.detail.buttonEvent.type === "triggerdown") {
+              e.detail.target.setAttribute("color", "red");
+              e.detail.target.components.sound.playSound();
+              e.detail.target.components.sound.el.addEventListener("sound-ended", () => {
+                e.detail.target.components.sound.playSound();
+              })
+            }
+          });
+
+          this.el.addEventListener("grab-end", (e) => {
+            if (e.detail.buttonEvent.type === "gripup") {
+              e.detail.target.setAttribute("color", "yellow");
+            }
+            if (e.detail.buttonEvent.type === "triggerup") {
+              e.detail.target.setAttribute("color", "blue");
+              e.detail.target.components.sound.stopSound();
+            }
+          });
+        },
+      });
+    </script>
+  </head>
+  <body>
+    <a-scene>
+      <a-assets>
+        <sound id="sound_ambience" src="/assets/sound/ambience.wav" preload="auto"></sound>
+        <sound id="sound_splash" src="/assets/sound/splash.mp3" preload="auto"></sound>
+      </a-assets>
+      <a-entity id="cameraRig" thumbstick-logging>
+        <a-camera></a-camera>
+
+        <!-- oculus hands with super-hands component -->
+        <a-entity
+          id="leftHand"
+          hand-controls="hand: left; handModelStyle: lowPoly; color: #ffcccc"
+          super-hands
+          raycaster="objects: .interactable"
+          sphere-collider="objects: .interactable;"
+          static-body="shape: sphere; sphereRadius: 0.02"
+        ></a-entity>
+        <a-entity
+          id="rightHand"
+          hand-controls="hand: right; handModelStyle: lowPoly; color: #ffcccc"
+          super-hands
+          raycaster="objects: .interactable"
+          sphere-collider="objects: .interactable;"
+          static-body="shape: sphere; sphereRadius: 0.02"
+          rotation="10 0 0"
+        ></a-entity>
+
+        <!-- Cursor for VR interaction -->
+        <a-cursor></a-cursor>
+      </a-entity>
+
+      <!-- On/Off Button with multiple sounds -->
+      <a-box
+        id="toggleButton"
+        class="interactable"
+        position="0 2 -1.5"
+        width="0.2"
+        height="0.2"
+        depth="0.05"
+        color="red"
+        sound="src: #sound_ambience; volume: 0.2"
+        radio
+        clickable
+      ></a-box>
+    </a-scene>
+  </body>
+</html>
