@@ -4,13 +4,19 @@ AFRAME.registerComponent('collision-check', {
     this.el.addEventListener('raycaster-intersected-cleared', this.handleIntersectCleared.bind(this));
   },
   tick: function () {
-    // Always check for intersections
-    const isIntersecting = this.el.components.raycaster.intersectedEls.length > 0;
+    const intersectedEls = this.el.components.raycaster.intersectedEls;
 
-    if (isIntersecting) {
-      console.log('Fishing rod is inside the check area');
+    if (intersectedEls.length > 0) {
+      intersectedEls.forEach(intersectedEl => {
+        if (intersectedEl.id === 'hitbox-front') {
+          console.log('Element is in front hitbox');
+        }
+        else if (intersectedEl.id === 'hitbox-behind') {
+          console.log('Element is in behind hitbox');
+        }
+      });
     } else {
-      console.log('Fishing rod is outside the check area');
+      // console.log('Element is outside the check area');
     }
   },
   handleIntersect: function (event) {

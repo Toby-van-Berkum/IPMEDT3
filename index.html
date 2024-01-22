@@ -23,7 +23,7 @@
 </head>
 
 <body>
-  <a-scene physics="debug: true" renderer="	antialias: true;
+  <a-scene renderer="	antialias: true;
 											sortObjects: true;
 											physicallyCorrectLights: false;
 											foveationLevel: true;">
@@ -80,7 +80,7 @@
       static-body
       id="ocean-box-1"
       position="0 -1.5 -7"
-      ocean-box-component="size: 120 1 40"
+      ocean-box-component="size: 160 1 40"
     ></a-entity>
 
     <!-- physics planes -->
@@ -98,7 +98,7 @@
 
     <a-box dynamic-body id="dummy" class="interactable" width="0.1" height="0.1" depth="0.1" position="0 3 -1" color="purple" grabbable></a-box>
 
-    <a-entity dynamic-body id="fishing-rod" class="interactable" obj-model="obj: #fishing_rod-obj; mtl: #fishing_rod-mtl" position="0 -.3 0" visible="true" raycaster="objects: .check-area; far: 3.5; showLine: true; direction: 0 1 0" grabbable="maxGrabbers: 1" collision-check>
+    <a-entity dynamic-body id="fishing-rod" class="interactable" obj-model="obj: #fishing_rod-obj; mtl: #fishing_rod-mtl" position="0 -.3 0" visible="true" raycaster="objects: .check-area; far: 3.5; direction: 0 1 0" grabbable="maxGrabbers: 1" collision-check>
     </a-entity>
     
     <!-- <a-entity dynamic-body id="dobber" obj-model="obj: #dobber-obj; mtl: #dobber-mtl" position="0 2 -1"></a-entity> -->
