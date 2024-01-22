@@ -1,6 +1,6 @@
 # Blender 4.0.0
 # www.blender.org
-mtllib dobber-resized.mtl
+mtllib dobber.mtl
 o Cylinder
 v -0.000000 0.125829 -0.050608
 v -0.000000 0.137687 -0.047953
