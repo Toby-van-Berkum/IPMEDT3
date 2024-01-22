@@ -20,13 +20,21 @@
               e.detail.target.components.sound.playSound();
               e.detail.target.components.sound.el.addEventListener("sound-ended", () => {
                 e.detail.target.components.sound.playSound();
-              })
+              });
             }
           });
 
           this.el.addEventListener("grab-end", (e) => {
-            if (e.detail.buttonEvent.type === "gripup") {
+            if (e.detail.buttonEvent.type === "gripup" || e.detail.buttonEvent.type === "triggerup") {
               e.detail.target.setAttribute("color", "yellow");
+
+              // Assuming the box has the dynamic-body component
+              const box = e.detail.target;
+              if (box.components['dynamic-body']) {
+                // Adjust the velocity as needed
+                const velocity = new THREE.Vector3(0, 2, -5);
+                box.components['dynamic-body'].body.velocity.copy(velocity);
+              }
             }
             if (e.detail.buttonEvent.type === "triggerup") {
               e.detail.target.setAttribute("color", "blue");
@@ -69,19 +77,21 @@
         <a-cursor></a-cursor>
       </a-entity>
 
-      <!-- On/Off Button with multiple sounds -->
+      <!-- On/Off Button with multiple sounds and dynamic-body -->
       <a-box
         id="toggleButton"
         class="interactable"
-        position="0 2 -1.5"
+        position="0 2 -0.2"
         width="0.2"
         height="0.2"
-        depth="0.05"
+        depth="0.2"
         color="red"
         sound="src: #sound_ambience; volume: 0.2"
         radio
-        clickable
+        grabbable
+        dynamic-body
       ></a-box>
+      <a-plane  static-body width="10" height="10" rotation="-90 0 0" color="lime" position="0 1 0"></a-plane>
     </a-scene>
   </body>
 </html>
