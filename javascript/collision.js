@@ -14,6 +14,7 @@ AFRAME.registerComponent('collision-check', {
 
     this.originalAttributes = dobber.attributes;
 
+    //time before fish
     const max = 1000;
     const min = 500;
     this.timeWindow = Math.random() * (max - min) + min;
@@ -37,7 +38,7 @@ AFRAME.registerComponent('collision-check', {
         //checks for collision with the front hitbox
         if (intersectedEl.id === 'hitbox-front' && this.tickCounter < 300 && this.firstHit == true) {
           console.log("good throw");
-          document.getElementById('howTo').setAttribute('value', 'Goed gedaan!\nNu is het wachten tot dat je beet hebt.\nAls je ziet dat de dobber het water in wordt getrokken trek je de hengel om hoog om \nde vis in te haken!');
+          document.getElementById('howTo').setAttribute('value', 'Nu is het wachten tot dat je beet hebt...');
           this.firstHit = false;
           this.goodThrow = true;
           const dobber = document.getElementById('dobber');
@@ -99,6 +100,14 @@ AFRAME.registerComponent('collision-check', {
       if(this.catchTick > this.timeWindow - 200 && this.catchTick < this.timeWindow + 200){
         document.getElementById('howTo').setAttribute('value', 'Je hebt beet! \nTrek NU je hengel omhoog!.');
         this.goodCatch = true;
+      }
+      else if(this.catchTick> this.timeWindow + 200) {
+        document.getElementById('howTo').setAttribute('value', 'Oei! Je was te laat...\n Probeer op nieuw');
+        
+        this.goodCatch = false;
+        this.goodThrow = false
+        this.catchTick = 0;
+        
       }
 
     }
