@@ -2,12 +2,53 @@ AFRAME.registerComponent('collision-check', {
   init: function () {
     this.el.addEventListener('raycaster-intersected', this.handleIntersect.bind(this));
     this.el.addEventListener('raycaster-intersected-cleared', this.handleIntersectCleared.bind(this));
+    this.initialPosition = this.el.getAttribute('position');
     this.howTo = document.getElementById('howTo');
     //tickcounter is used as timer
     this.tickCounter = 0;
     //firstHit is used to register wether the rear hitbox has been hit or not
     this.firstHit = false;
 
+    const originalAttributes = dobber.attributes;
+    
+    this.el.addEventListener("grab-start", (e) => {
+      if (e.detail.buttonEvent.type === "gripdown") {
+        // Assuming the box has the dynamic-body component
+        const dobber = document.getElementById('dobber');
+        const fishing_rod = document.getElementById('fishing-rod');
+        if (dobber.components['dynamic-body']) {
+          // Remove the constraint attribute
+          fishing_rod.removeAttribute('constraint');
+          // Adjust the velocity as needed
+          const velocity = new THREE.Vector3(0, 2, -5);
+          dobber.components['dynamic-body'].body.velocity.copy(velocity);
+        }
+      }
+    });
+
+    this.el.addEventListener("grab-end", (e) => {
+      if (e.detail.buttonEvent.type === "gripup") {
+        // Add the constraint attribute back with target #fishing-rod
+        const fishingRod = document.getElementById('fishing-rod');
+        const dobber = document.getElementById('dobber');
+
+        dobber.parentNode.removeChild(dobber);
+    
+        const newDobber = document.createElement('a-entity');
+        for (let i = 0; i < originalAttributes.length; i++) {
+          const attribute = originalAttributes[i];
+          newDobber.setAttribute(attribute.name, attribute.value);
+        }
+    
+        // Attach the new dobber to the fishing-rod
+        fishingRod.appendChild(newDobber);
+
+        fishingRod.setAttribute('constraint', {
+          target: '#dobber',
+          collideConnected: 'false',
+        });
+      }
+    });
   },
   tick: function () {
     const intersectedEls = this.el.components.raycaster.intersectedEls;
