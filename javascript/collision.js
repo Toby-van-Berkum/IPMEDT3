@@ -6,51 +6,19 @@ AFRAME.registerComponent('collision-check', {
     this.howTo = document.getElementById('howTo');
     //tickcounter is used as timer
     this.tickCounter = 0;
+    this.catchTick = 0;
     //firstHit is used to register wether the rear hitbox has been hit or not
     this.firstHit = false;
     this.goodThrow = false;
-    this.goodCatch = true;
+    this.goodCatch = false;
 
     this.originalAttributes = dobber.attributes;
-    
-    // this.el.addEventListener("grab-start", (e) => {
-    //   if (e.detail.buttonEvent.type === "gripdown") {
-    //     // Assuming the box has the dynamic-body component
-    //     const dobber = document.getElementById('dobber');
-    //     const fishing_rod = document.getElementById('fishing-rod');
-    //     if (dobber.components['dynamic-body']) {
-    //       // Remove the constraint attribute
-    //       fishing_rod.removeAttribute('constraint');
-    //       // Adjust the velocity as needed
-    //       const velocity = new THREE.Vector3(0, 2, -5);
-    //       dobber.components['dynamic-body'].body.velocity.copy(velocity);
-    //     }
-    //   }
-    // });
 
-    // this.el.addEventListener("grab-end", (e) => {
-    //   if (e.detail.buttonEvent.type === "gripup") {
-    //     // Add the constraint attribute back with target #fishing-rod
-    //     const fishingRod = document.getElementById('fishing-rod');
-    //     const dobber = document.getElementById('dobber');
+    const max = 1000;
+    const min = 500;
+    this.timeWindow = Math.random() * (max - min) + min;
 
-    //     dobber.parentNode.removeChild(dobber);
     
-    //     const newDobber = document.createElement('a-entity');
-    //     for (let i = 0; i < originalAttributes.length; i++) {
-    //       const attribute = originalAttributes[i];
-    //       newDobber.setAttribute(attribute.name, attribute.value);
-    //     }
-    
-    //     // Attach the new dobber to the fishing-rod
-    //     fishingRod.appendChild(newDobber);
-
-    //     fishingRod.setAttribute('constraint', {
-    //       target: '#dobber',
-    //       collideConnected: 'false',
-    //     });
-      // }
-    // });
   },
   tick: function () {
     const intersectedEls = this.el.components.raycaster.intersectedEls;
@@ -86,7 +54,7 @@ AFRAME.registerComponent('collision-check', {
         //checks for collision with mid hitbox
         if (intersectedEl.id === 'hitbox-mid' && this.goodThrow == true && this.goodCatch == true) {
           document.getElementById('howTo').setAttribute('value', 'Goed gedaan! Je hebt een vis gevangen!');
-          console.log('ur mom');
+          console.log('fish caught');
           const fishingRod = document.getElementById('fishing-rod');
           const dobber = document.getElementById('dobber');
   
@@ -105,8 +73,9 @@ AFRAME.registerComponent('collision-check', {
             target: '#dobber',
             collideConnected: 'false',
           });
-          // this.goodCatch = false;
+          this.goodCatch = false;
           this.goodThrow = false;
+          this.catchTick = 0;
         }
       });
     }
@@ -121,6 +90,17 @@ AFRAME.registerComponent('collision-check', {
       if (this.goodThrow == false) {
         document.getElementById('howTo').setAttribute('value', 'Hi welkom bij onze fishing tutorial! \nOm te beginnen breng je vishengel over\n je schouder naar achter.');
       }
+    }
+    //time before catch
+    if (this.goodThrow == true) {
+      this.catchTick++;
+
+
+      if(this.catchTick > this.timeWindow - 200 && this.catchTick < this.timeWindow + 200){
+        document.getElementById('howTo').setAttribute('value', 'Je hebt beet! \nTrek NU je hengel omhoog!.');
+        this.goodCatch = true;
+      }
+
     }
   },
   handleIntersect: function (event) {
