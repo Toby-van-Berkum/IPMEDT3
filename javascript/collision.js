@@ -89,6 +89,7 @@ AFRAME.registerComponent('collision-check', {
   handleGoodCatchStart: function () {
     this.setHowToMessage('Je hebt beet! \nTrek NU je hengel omhoog!.');
     if (!this.dobberSoundPlayed) {
+      const dobber = document.getElementById('dobber');
       dobber.components.sound.playSound();
       this.dobberSoundPlayed = true;
     }
