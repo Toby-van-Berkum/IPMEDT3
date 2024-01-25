@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
+  <link rel="icon" href="data:,">
+
   <!-- A-frame script -->
   <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
 
@@ -15,7 +17,6 @@
 
   <!-- own scripts -->
   <script src="javascript/movement.js"></script>
-  <!-- <script src="javascript/physics.js"></script> -->
   <script src="javascript/waves.js"></script>
   <script src="javascript/collision.js"></script>
 
@@ -23,7 +24,7 @@
 </head>
 
 <body>
-  <a-scene physics="debug: true" renderer="	antialias: true;
+  <a-scene renderer="	antialias: true;
 											sortObjects: true;
 											physicallyCorrectLights: false;
 											foveationLevel: true;">
@@ -36,13 +37,13 @@
       <!-- table asset -->
       <a-asset-item id="table-obj" src="assets/object/foldable_table.obj"></a-asset-item>
       <a-asset-item id="table-mtl" src="assets/object/foldable_table.mtl"></a-asset-item>
-
+      <!-- fishing rod asset -->
       <a-asset-item id="fishing_rod-obj" src="assets/object/rod.obj"></a-asset-item>
       <a-asset-item id="fishing_rod-mtl" src="assets/object/rod.mtl"></a-asset-item>
-
+      <!-- dobber asset -->
       <a-asset-item id="dobber-obj" src="assets/object/dobber.obj"></a-asset-item>
       <a-asset-item id="dobber-mtl" src="assets/object/dobber.mtl"></a-asset-item>
-
+      <!-- snoek asset -->
       <a-asset-item id="snoek-obj" src="assets/object/snoek.obj"></a-asset-item>
       <a-asset-item id="snoek-mtl" src="assets/object/snoek.mtl"></a-asset-item>
 
@@ -56,7 +57,8 @@
       <a-asset-item id="karper-mtl" src="assets/object/karper.mtl"></a-asset-item>
 
       <!-- sound assets-->
-      <sound id="ambience" src="/assets/sound/ambience.wav"></sound>
+      <audio id="ambience" src="/assets/sound/ambience.wav" preload="auto"></audio>
+      <audio id="splash" src="/assets/sound/splash.mp3" preload="auto"></audio>
     </a-assets>
 
     <!-- camera rig -->
@@ -74,12 +76,13 @@
       <a-entity
         id="rightHand"
         hand-controls="hand: right; handModelStyle: lowPoly; color: #ffcccc"
-        super-hands="grabStartButtons: gripdown,trackpaddown,gripclose,abuttondown,bbuttondown,xbuttondown,ybuttondown,pointup,thumbup,pointingstart,pistolstart,thumbstickdown,mousedown,touchstart"
-        sphere-collider="objects: .interactable;"
-        static-body="shape: sphere; sphereRadius: 0.02"
         rotation="10 0 0"
       >
-    </a-entity>
+        <a-entity static-body id="fishing-rod" class="interactable" obj-model="obj: #fishing_rod-obj; mtl: #fishing_rod-mtl" position="-.05 -.3 .02" visible="true" rotation="5 90 -5" raycaster="objects: .check-area; far: 3.5; direction: 0 1 0" constraint="target: #dobber; collideConnected: false" grabbable collision-check>
+          <a-entity dynamic-body id="dobber" obj-model="obj: #dobber-obj; mtl: #dobber-mtl" position="0.35 3.5 0" rotation="90 0 90">
+          </a-entity>
+        </a-entity>
+      </a-entity>
     </a-entity>
 
 
@@ -89,30 +92,26 @@
       static-body
       id="ocean-box-1"
       position="0 -1.5 -7"
-      ocean-box-component="size: 120 1 40"
+      ocean-box-component="size: 160 1 40"
     ></a-entity>
+    
 
     <!-- physics planes -->
     <a-plane static-body visible="false" position="-.1 0 1.5" width="4.5" height="8" rotation="-90 0 0"></a-plane>
     
-
     <!-- sky -->
     <a-sky src="img/sky.jpg" rotation="0 -90 0"></a-sky>
     
 
     <!-- objects -->
-    <a-entity static-body id="table" obj-model="obj: #table-obj; mtl: #table-mtl" scale=".8 .8 .8" position="1 .1 2" rotation="0 -75 0"></a-entity>
-    <a-box class="check-area" id="hitbox-front" width="3" depth=".5" height=".5" position="0 1.5 -1" color="red" visible="true"></a-box>
-    <a-box class="check-area" id="hitbox-behind" width="3" depth=".8" height=".8" position="0 2.5 2" color="red" visible="true"></a-box>
-
-    <a-box dynamic-body id="dummy" class="interactable" width="0.1" height="0.1" depth="0.1" position="0 3 -1" color="purple" grabbable></a-box>
-
-    <a-entity dynamic-body id="fishing-rod" class="interactable" obj-model="obj: #fishing_rod-obj; mtl: #fishing_rod-mtl" position="0 -.3 0" visible="true" raycaster="objects: .check-area; far: 3.5; showLine: true; direction: 0 1 0" grabbable="maxGrabbers: 1" collision-check>
-    </a-entity>
+    <a-text id="howTo" scale=".5 .5 .5" value="Hi welkom bij onze fishing tutorial! \nOm te beginnen breng je vishengel over\n je schouder naar achter." position="-1 1 -1"></a-text>
     
-    <a-entity dynamic-body id="dobber" obj-model="obj: #dobber-obj; mtl: #dobber-mtl" position="0 2 -1"></a-entity>
+    <a-entity static-body id="table" obj-model="obj: #table-obj; mtl: #table-mtl" scale=".8 .8 .8" position="1 .1 2" rotation="0 15 0"></a-entity>
+    <a-box class="check-area" id="hitbox-front" width="3" depth=".5" height=".5"    position="0 2 -1"   color="red" visible="false"></a-box>
+    <a-box class="check-area" id="hitbox-behind" width="3" depth=".5" height=".5"   position="0 2.5 2"  color="red" visible="false"></a-box>
+    <a-box class="check-area" id="hitbox-mid" width="3" depth=".8" height=".8"      position="0 3 0"    color="red" visible="false"></a-box>
 
-    <a-entity dynamic-body id="snoek" obj-model="obj: #snoek-obj; mtl: #snoek-mtl" position="0 3 -1"></a-entity>
+    <a-entity dynamic-body grabbable id="snoek1" obj-model="obj: #snoek-obj; mtl: #snoek-mtl" position="0 1 -10" visible="false"></a-entity>
 
     <a-entity dynamic-body id="baars" obj-model="obj: #baars-obj; mtl: #baars-mtl" position="0 4 -1"></a-entity>
 
@@ -121,7 +120,8 @@
     <a-entity dynamic-body id="karper" obj-model="obj: #karper-obj; mtl: #karper-mtl" position="0 6 -1"></a-entity>
 
     <!-- audio -->
-    <a-sound src="#ambience" autoplay="false" loop="true" volume="0.3" spatialization="2d"></a-sound>
+    <a-sound src="#ambience" autoplay="true" loop="true" volume="1" spatialization="2d"></a-sound>
+    <a-sound src="#splash" id="splashSound"></a-sound>
 
     <!-- a frame positions are x y z aka width height depth -->
   </a-scene>
