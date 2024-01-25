@@ -183,7 +183,7 @@ AFRAME.registerComponent('collision-check', {
 
     const fish = document.createElement('a-entity');
     fish.setAttribute('dynamic-body', {});
-    fish.setAttribute('obj-model', "#canal-obj; mtl: #canal-mtl");
+    fish.setAttribute('obj-model', "#snoek-obj; mtl: #snoek-mtl");
     fish.setAttribute('position', {x: 0, y: 1, z: -10});
     
     this.newestFish = fish;
