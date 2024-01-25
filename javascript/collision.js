@@ -11,6 +11,7 @@ AFRAME.registerComponent('collision-check', {
     this.goodCatch = false;
     this.originalAttributes = dobber.attributes;
     this.timeWindow = Math.random() * (1000 - 500) + 500;
+    this.dobberSoundPlayed = false;
   },
   tick: function () {
     const intersectedEls = this.el.components.raycaster.intersectedEls;
@@ -84,7 +85,12 @@ AFRAME.registerComponent('collision-check', {
     this.resetGoodCatch();
   },
   handleGoodCatchStart: function () {
+    const dobber = document.getElementById('dobber');
     this.setHowToMessage('Je hebt beet! \nTrek NU je hengel omhoog!.');
+    if (!this.dobberSoundPlayed) {
+      dobber.components.sound.playSound();
+      this.dobberSoundPlayed = true;
+    }
     this.goodCatch = true;
   },
   handleLateCatch: function () {
@@ -120,6 +126,7 @@ AFRAME.registerComponent('collision-check', {
   resetGoodCatch: function () {
     this.goodCatch = false;
     this.goodThrow = false;
+    this.dobberSoundPlayed = false;
     this.catchTick = 0;
   }
 });
