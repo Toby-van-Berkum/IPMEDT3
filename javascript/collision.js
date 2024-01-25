@@ -19,6 +19,7 @@ AFRAME.registerComponent('collision-check', {
     const min = 500;
     this.timeWindow = Math.random() * (max - min) + min;
     
+    const biteSoundPlayed = false;
   },
   tick: function () {
     const intersectedEls = this.el.components.raycaster.intersectedEls;
@@ -153,6 +154,11 @@ AFRAME.registerComponent('collision-check', {
   },
   handleGoodCatchStart: function () {
     this.setHowToMessage('Je hebt beet! \nTrek NU je hengel omhoog!.');
+    if (!this.biteSoundPlayed) {
+      const fishSound = document.getElementById('splashSound');
+      fishSound.components.sound.playSound();
+      this.biteSoundPlayed = true;
+    }
     this.goodCatch = true;
   },
   handleCatch: function () {
@@ -168,6 +174,7 @@ AFRAME.registerComponent('collision-check', {
     this.goodCatch = false;
     this.goodThrow = false;
     this.catchTick = 0;
+    this.biteSoundPlayed = false;
   },
   resetTextMessage: function () {
     this.setHowToMessage('Hi welkom bij onze fishing tutorial! \nOm te beginnen breng je vishengel over\n je schouder naar achter.');
