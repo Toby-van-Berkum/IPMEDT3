@@ -19,7 +19,7 @@ AFRAME.registerComponent('collision-check', {
     const min = 500;
     this.timeWindow = Math.random() * (max - min) + min;
     
-    const biteSoundPlayed = false;
+    this.biteSoundPlayed = false;
   },
   tick: function () {
     const intersectedEls = this.el.components.raycaster.intersectedEls;
@@ -100,6 +100,7 @@ AFRAME.registerComponent('collision-check', {
       if(this.catchTick > this.timeWindow - 100 && this.catchTick < this.timeWindow + 100){
         document.getElementById('howTo').setAttribute('value', 'Je hebt beet! \nTrek NU je hengel omhoog!.');
         this.goodCatch = true;
+        
       }
       else if(this.catchTick >= this.timeWindow + 100) {
         document.getElementById('howTo').setAttribute('value', 'Oei! Je was te laat...\n Probeer op nieuw');
