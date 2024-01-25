@@ -199,6 +199,7 @@ AFRAME.registerComponent('collision-check', {
     fishEntity.setAttribute('obj-model', "obj:#snoek-obj; mtl: #snoek-mtl");
     fishEntity.setAttribute('position', {x: 0, y: 0.2, z: -10});
     fishEntity.setAttribute('visible', false);
+    fishEntity.setAttribute('grabbable', {});
     fishEntity.id = `snoek${this.fishCount}`;
     
     scene.appendChild(fishEntity);
