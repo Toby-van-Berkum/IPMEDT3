@@ -18,12 +18,10 @@ AFRAME.registerComponent('collision-check', {
     const max = 1000;
     const min = 500;
     this.timeWindow = Math.random() * (max - min) + min;
-
     
   },
   tick: function () {
     const intersectedEls = this.el.components.raycaster.intersectedEls;
-
 
     if (intersectedEls.length > 0) {
       intersectedEls.forEach(intersectedEl => {
@@ -96,7 +94,6 @@ AFRAME.registerComponent('collision-check', {
     if (this.goodThrow == true) {
       this.catchTick++;
 
-
       if(this.catchTick > this.timeWindow - 100 && this.catchTick < this.timeWindow + 100){
         document.getElementById('howTo').setAttribute('value', 'Je hebt beet! \nTrek NU je hengel omhoog!.');
         this.goodCatch = true;
@@ -125,9 +122,6 @@ AFRAME.registerComponent('collision-check', {
         this.goodThrow = false;
         this.catchTick = 0;
       }
-        
-      
-
     }
   },
   handleIntersect: function (event) {
