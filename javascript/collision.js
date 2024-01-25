@@ -55,6 +55,10 @@ AFRAME.registerComponent('collision-check', {
 
         //checks for collision with mid hitbox
         if (intersectedEl.id === 'hitbox-mid' && this.goodThrow == true && this.goodCatch == true) {
+          if (this.fishCaught == false) {
+            this.yeetFish();
+            this.fishCaught = true;
+          }
           document.getElementById('howTo').setAttribute('value', 'Goed gedaan! Je hebt een vis gevangen!');
           console.log('fish caught');
 
@@ -79,6 +83,7 @@ AFRAME.registerComponent('collision-check', {
           });
           this.goodCatch = false;
           this.goodThrow = false;
+          this.fishCaught = false;
           this.catchTick = 0;
         }
       });
@@ -102,10 +107,7 @@ AFRAME.registerComponent('collision-check', {
       if(this.catchTick > this.timeWindow - 100 && this.catchTick < this.timeWindow + 100){
         document.getElementById('howTo').setAttribute('value', 'Je hebt beet! \nTrek NU je hengel omhoog!.');
         this.goodCatch = true;
-        if (this.fishCaught == false) {
-          this.yeetFish();
-          this.fishCaught = true;
-        }
+
       }
       else if(this.catchTick >= this.timeWindow + 100) {
         document.getElementById('howTo').setAttribute('value', 'Oei! Je was te laat...\n Probeer op nieuw');
@@ -129,7 +131,6 @@ AFRAME.registerComponent('collision-check', {
         });
         this.goodCatch = false;
         this.goodThrow = false;
-        this.fishCaught = false;
         this.catchTick = 0;
       }
     }
@@ -189,7 +190,7 @@ AFRAME.registerComponent('collision-check', {
     const fish = document.getElementById(`snoek${this.fishCount}`);
     if (fish.components['dynamic-body']) {
       fish.setAttribute('visible', true);
-      const velocity = new THREE.Vector3(0, 10, 5);
+      const velocity = new THREE.Vector3(0, 12, 4.5);
       fish.components['dynamic-body'].body.velocity.copy(velocity);
     }
     this.fishCount++;
@@ -200,6 +201,7 @@ AFRAME.registerComponent('collision-check', {
     fishEntity.setAttribute('position', {x: 0, y: 0.2, z: -10});
     fishEntity.setAttribute('visible', false);
     fishEntity.setAttribute('grabbable', {});
+    fishEntity.classList.add("interactable");
     fishEntity.id = `snoek${this.fishCount}`;
     
     scene.appendChild(fishEntity);
