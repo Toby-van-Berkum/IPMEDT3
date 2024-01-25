@@ -74,25 +74,8 @@ AFRAME.registerComponent('collision-check', {
       dobber.components['dynamic-body'].body.velocity.copy(velocity);
     }
   },
-
-  handleGoodCatchStart: function () {
-    const dobber = document.getElementById('dobber');
-    this.removeDobber(dobber);
-    const newDobber = this.createNewDobber();
-    fishingRod.appendChild(newDobber);
-    fishingRod.setAttribute('constraint', {
-      target: '#dobber',
-      collideConnected: 'false',
-    });
-    this.resetGoodCatch();
-  },
   handleGoodCatchStart: function () {
     this.setHowToMessage('Je hebt beet! \nTrek NU je hengel omhoog!.');
-    if (!this.dobberSoundPlayed) {
-      const dobber = document.getElementById('dobber');
-      dobber.components.sound.playSound();
-      this.dobberSoundPlayed = true;
-    }
     this.goodCatch = true;
   },
   handleCatch: function () {
@@ -125,5 +108,5 @@ AFRAME.registerComponent('collision-check', {
       newDobber.setAttribute(attribute.name, attribute.value);
     }
     return newDobber;
-  },
+  }
 });
