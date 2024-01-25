@@ -131,8 +131,59 @@ AFRAME.registerComponent('collision-check', {
   },
   handleIntersectCleared: function (event) {
     // This function can be empty, or you can add specific handling when intersected is cleared
+  },
+  handleRearHitbox: function () {
+    console.log('Element is in rear hitbox');
+    this.tickCounter = 0;
+    this.firstHit = true;
+    this.setHowToMessage('Zwaai nu je hengel in een boog over \nje hooft naar voren om in te gooien!');
+  },
+  handleGoodThrow: function () {
+    console.log("good throw");
+    this.setHowToMessage('Nu is het wachten tot dat je beet hebt...');
+    this.firstHit = false;
+    this.goodThrow = true;
+    const dobber = document.getElementById('dobber');
+    const fishing_rod = document.getElementById('fishing-rod');
+    if (dobber.components['dynamic-body']) {
+      fishing_rod.removeAttribute('constraint');
+      const velocity = new THREE.Vector3(0, 2, -5);
+      dobber.components['dynamic-body'].body.velocity.copy(velocity);
+    }
+  },
+  handleGoodCatchStart: function () {
+    this.setHowToMessage('Je hebt beet! \nTrek NU je hengel omhoog!.');
+    this.goodCatch = true;
+  },
+  handleCatch: function () {
+    const fishingRod = document.getElementById('fishing-rod');
+    const dobber = document.getElementById('dobber');
+    this.removeDobber(dobber);
+    const newDobber = this.createNewDobber();
+    fishingRod.appendChild(newDobber);
+    fishingRod.setAttribute('constraint', {
+      target: '#dobber',
+      collideConnected: 'false',
+    });
+    this.goodCatch = false;
+    this.goodThrow = false;
+    this.catchTick = 0;
+  },
+  resetTextMessage: function () {
+    this.setHowToMessage('Hi welkom bij onze fishing tutorial! \nOm te beginnen breng je vishengel over\n je schouder naar achter.');
+  },
+  setHowToMessage: function (message) {
+    document.getElementById('howTo').setAttribute('value', message);
+  },
+  removeDobber: function (dobber) {
+    dobber.parentNode.removeChild(dobber);
+  },
+  createNewDobber: function () {
+    const newDobber = document.createElement('a-entity');
+    for (let i = 0; i < this.originalAttributes.length; i++) {
+      const attribute = this.originalAttributes[i];
+      newDobber.setAttribute(attribute.name, attribute.value);
+    }
+    return newDobber;
   }
-  
 });
-
-
