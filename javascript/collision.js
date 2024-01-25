@@ -20,6 +20,7 @@ AFRAME.registerComponent('collision-check', {
     this.timeWindow = Math.random() * (max - min) + min;
     
     this.biteSoundPlayed = false;
+    this.newestFish;
   },
   tick: function () {
     const intersectedEls = this.el.components.raycaster.intersectedEls;
@@ -177,6 +178,23 @@ AFRAME.registerComponent('collision-check', {
     this.catchTick = 0;
     this.biteSoundPlayed = false;
   },
+
+  yeetFish: function () {
+    const scene = document.querySelector('a-scene');
+
+    const fish = document.createElement('a-entity');
+    fish.setAttribute('dynamic-body', {});
+    fish.setAttribute('obj-model', "#canal-obj; mtl: #canal-mtl");
+    fish.setAttribute('position', {x: 0, y: 1, z: -10});
+    
+    this.newestFish = fish;
+
+    scene.appendChild(fish);
+
+    const velocity = new THREE.Vector3(0, 5, -7);
+    this.newestFish.components['dynamic-body'].body.velocity.copy(velocity);
+  },
+
   resetTextMessage: function () {
     this.setHowToMessage('Hi welkom bij onze fishing tutorial! \nOm te beginnen breng je vishengel over\n je schouder naar achter.');
   },
