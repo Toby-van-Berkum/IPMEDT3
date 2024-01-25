@@ -22,7 +22,9 @@ AFRAME.registerComponent('collision-check', {
       } else if (intersectedEl.id === 'hitbox-front' && this.tickCounter < 300 && this.firstHit) {
         this.handleGoodThrow();
       } else if (intersectedEl.id === 'hitbox-mid' && this.goodThrow && this.goodCatch) {
-        this.handleGoodCatch();
+        this.setHowToMessage('Goed gedaan! Je hebt een vis gevangen!');
+        console.log('fish caught');
+        this.handleCatch();
       }
     });
 
@@ -41,7 +43,9 @@ AFRAME.registerComponent('collision-check', {
       if (this.catchTick > this.timeWindow - 100 && this.catchTick < this.timeWindow + 100) {
         this.handleGoodCatchStart();
       } else if (this.catchTick >= this.timeWindow + 100) {
-        this.handleLateCatch();
+        this.setHowToMessage('Oei! Je was te laat...\n Probeer het maar op nieuw');
+
+        this.handleCatch();
       }
     }
   },
@@ -70,10 +74,8 @@ AFRAME.registerComponent('collision-check', {
       dobber.components['dynamic-body'].body.velocity.copy(velocity);
     }
   },
-  handleGoodCatch: function () {
-    this.setHowToMessage('Goed gedaan! Je hebt een vis gevangen!');
-    console.log('fish caught');
-    const fishingRod = document.getElementById('fishing-rod');
+
+  handleGoodCatchStart: function () {
     const dobber = document.getElementById('dobber');
     this.removeDobber(dobber);
     const newDobber = this.createNewDobber();
@@ -85,7 +87,6 @@ AFRAME.registerComponent('collision-check', {
     this.resetGoodCatch();
   },
   handleGoodCatchStart: function () {
-    const dobber = document.getElementById('dobber');
     this.setHowToMessage('Je hebt beet! \nTrek NU je hengel omhoog!.');
     if (!this.dobberSoundPlayed) {
       dobber.components.sound.playSound();
@@ -93,8 +94,7 @@ AFRAME.registerComponent('collision-check', {
     }
     this.goodCatch = true;
   },
-  handleLateCatch: function () {
-    this.setHowToMessage('Oei! Je was te laat...\n Probeer het maar op nieuw');
+  handleCatch: function () {
     const fishingRod = document.getElementById('fishing-rod');
     const dobber = document.getElementById('dobber');
     this.removeDobber(dobber);
@@ -104,7 +104,9 @@ AFRAME.registerComponent('collision-check', {
       target: '#dobber',
       collideConnected: 'false',
     });
-    this.resetGoodCatch();
+    this.goodCatch = false;
+    this.goodThrow = false;
+    this.catchTick = 0;
   },
   resetTextMessage: function () {
     this.setHowToMessage('Hi welkom bij onze fishing tutorial! \nOm te beginnen breng je vishengel over\n je schouder naar achter.');
@@ -123,10 +125,4 @@ AFRAME.registerComponent('collision-check', {
     }
     return newDobber;
   },
-  resetGoodCatch: function () {
-    this.goodCatch = false;
-    this.goodThrow = false;
-    this.dobberSoundPlayed = false;
-    this.catchTick = 0;
-  }
 });
