@@ -11,6 +11,7 @@ AFRAME.registerComponent('collision-check', {
     this.firstHit = false;
     this.goodThrow = false;
     this.goodCatch = false;
+    this.fishCaught = false;
 
     this.originalAttributes = dobber.attributes;
 
@@ -20,7 +21,7 @@ AFRAME.registerComponent('collision-check', {
     this.timeWindow = Math.random() * (max - min) + min;
     
     this.biteSoundPlayed = false;
-    this.newestFish;
+    this.fishCount = 1;
   },
   tick: function () {
     const intersectedEls = this.el.components.raycaster.intersectedEls;
@@ -101,6 +102,10 @@ AFRAME.registerComponent('collision-check', {
       if(this.catchTick > this.timeWindow - 100 && this.catchTick < this.timeWindow + 100){
         document.getElementById('howTo').setAttribute('value', 'Je hebt beet! \nTrek NU je hengel omhoog!.');
         this.goodCatch = true;
+        if (this.fishCaught == false) {
+          this.yeetFish();
+          this.fishCaught = true;
+        }
       }
       else if(this.catchTick >= this.timeWindow + 100) {
         document.getElementById('howTo').setAttribute('value', 'Oei! Je was te laat...\n Probeer op nieuw');
@@ -124,6 +129,7 @@ AFRAME.registerComponent('collision-check', {
         });
         this.goodCatch = false;
         this.goodThrow = false;
+        this.fishCaught = false;
         this.catchTick = 0;
       }
     }
@@ -180,19 +186,24 @@ AFRAME.registerComponent('collision-check', {
 
   yeetFish: function () {
     const scene = document.querySelector('a-scene');
+    const fish = document.getElementById(`snoek${this.fishCount}`);
+    if (fish.components['dynamic-body']) {
+      fish.setAttribute('visible', true);
+      const velocity = new THREE.Vector3(0, 10, 5);
+      fish.components['dynamic-body'].body.velocity.copy(velocity);
+    }
+    this.fishCount++;
 
-    const fish = document.createElement('a-entity');
-    fish.setAttribute('dynamic-body', {});
-    fish.setAttribute('obj-model', "#snoek-obj; mtl: #snoek-mtl");
-    fish.setAttribute('position', {x: 0, y: 1, z: -10});
+    const fishEntity = document.createElement('a-entity');
+    fishEntity.setAttribute('dynamic-body', {});
+    fishEntity.setAttribute('obj-model', "obj:#snoek-obj; mtl: #snoek-mtl");
+    fishEntity.setAttribute('position', {x: 0, y: 0.2, z: -10});
+    fishEntity.setAttribute('visible', false);
+    fishEntity.id = `snoek${this.fishCount}`;
     
-    this.newestFish = fish;
-
-    scene.appendChild(fish);
-
-    const velocity = new THREE.Vector3(0, 5, -7);
-    this.newestFish.components['dynamic-body'].body.velocity.copy(velocity);
+    scene.appendChild(fishEntity);
   },
+  
 
   resetTextMessage: function () {
     this.setHowToMessage('Hi welkom bij onze fishing tutorial! \nOm te beginnen breng je vishengel over\n je schouder naar achter.');
