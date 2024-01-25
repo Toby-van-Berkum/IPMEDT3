@@ -74,20 +74,6 @@ AFRAME.registerComponent('collision-check', {
       dobber.components['dynamic-body'].body.velocity.copy(velocity);
     }
   },
-  handleGoodCatch: function () {
-    this.setHowToMessage('Goed gedaan! Je hebt een vis gevangen!');
-    console.log('fish caught');
-    const fishingRod = document.getElementById('fishing-rod');
-    const dobber = document.getElementById('dobber');
-    this.removeDobber(dobber);
-    const newDobber = this.createNewDobber();
-    fishingRod.appendChild(newDobber);
-    fishingRod.setAttribute('constraint', {
-      target: '#dobber',
-      collideConnected: 'false',
-    });
-    this.resetGoodCatch();
-  },
   handleGoodCatchStart: function () {
     this.setHowToMessage('Je hebt beet! \nTrek NU je hengel omhoog!.');
     this.goodCatch = true;
@@ -122,10 +108,5 @@ AFRAME.registerComponent('collision-check', {
       newDobber.setAttribute(attribute.name, attribute.value);
     }
     return newDobber;
-  },
-  resetGoodCatch: function () {
-    this.goodCatch = false;
-    this.goodThrow = false;
-    this.catchTick = 0;
   }
 });
