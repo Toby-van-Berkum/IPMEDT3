@@ -97,18 +97,36 @@ AFRAME.registerComponent('collision-check', {
       this.catchTick++;
 
 
-      if(this.catchTick > this.timeWindow - 200 && this.catchTick < this.timeWindow + 200){
+      if(this.catchTick > this.timeWindow - 100 && this.catchTick < this.timeWindow + 100){
         document.getElementById('howTo').setAttribute('value', 'Je hebt beet! \nTrek NU je hengel omhoog!.');
         this.goodCatch = true;
       }
-      else if(this.catchTick> this.timeWindow + 200) {
+      else if(this.catchTick >= this.timeWindow + 100) {
         document.getElementById('howTo').setAttribute('value', 'Oei! Je was te laat...\n Probeer op nieuw');
-        
+        const fishingRod = document.getElementById('fishing-rod');
+        const dobber = document.getElementById('dobber');
+
+        dobber.parentNode.removeChild(dobber);
+    
+        const newDobber = document.createElement('a-entity');
+        for (let i = 0; i < this.originalAttributes.length; i++) {
+          const attribute = this.originalAttributes[i];
+          newDobber.setAttribute(attribute.name, attribute.value);
+        }
+    
+        // Attach the new dobber to the fishing-rod
+        fishingRod.appendChild(newDobber);
+
+        fishingRod.setAttribute('constraint', {
+          target: '#dobber',
+          collideConnected: 'false',
+        });
         this.goodCatch = false;
-        this.goodThrow = false
+        this.goodThrow = false;
         this.catchTick = 0;
-        
       }
+        
+      
 
     }
   },
