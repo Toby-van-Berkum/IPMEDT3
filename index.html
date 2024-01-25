@@ -70,7 +70,7 @@
         rotation="10 0 0"
       >
         <a-entity static-body id="fishing-rod" class="interactable" obj-model="obj: #fishing_rod-obj; mtl: #fishing_rod-mtl" position="-.05 -.3 .02" visible="true" rotation="5 90 -5" raycaster="objects: .check-area; far: 3.5; direction: 0 1 0" constraint="target: #dobber; collideConnected: false" grabbable collision-check>
-          <a-entity dynamic-body id="dobber" obj-model="obj: #dobber-obj; mtl: #dobber-mtl" position="0.35 3.5 0" rotation="90 0 90" sound="src: #splash; poolSize: 1; distanceModel: linear">
+          <a-entity dynamic-body id="dobber" obj-model="obj: #dobber-obj; mtl: #dobber-mtl" position="0.35 3.5 0" rotation="90 0 90">
           </a-entity>
         </a-entity>
       </a-entity>
@@ -106,6 +106,7 @@
 
     <!-- audio -->
     <a-sound src="#ambience" autoplay="true" loop="true" volume="1" spatialization="2d"></a-sound>
+    <a-sound src="#splash"></a-sound>
 
     <!-- a frame positions are x y z aka width height depth -->
   </a-scene>

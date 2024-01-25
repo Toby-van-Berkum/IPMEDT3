@@ -54,8 +54,10 @@ AFRAME.registerComponent('collision-check', {
         if (intersectedEl.id === 'hitbox-mid' && this.goodThrow == true && this.goodCatch == true) {
           document.getElementById('howTo').setAttribute('value', 'Goed gedaan! Je hebt een vis gevangen!');
           console.log('fish caught');
+
           const fishingRod = document.getElementById('fishing-rod');
           const dobber = document.getElementById('dobber');
+          console.log(dobber);
   
           dobber.parentNode.removeChild(dobber);
       
