@@ -16,9 +16,9 @@ AFRAME.registerComponent('collision-check', {
     this.originalAttributes = dobber.attributes;
 
     //time before fish
-    const max = 1000;
-    const min = 500;
-    this.timeWindow = Math.random() * (max - min) + min;
+    this.max = 1000;
+    this.min = 500;
+    this.timeWindow = Math.random() * (this.max - this.min) + this.min;
     
     this.biteSoundPlayed = false;
     this.fishCount = 1;
@@ -81,10 +81,13 @@ AFRAME.registerComponent('collision-check', {
             target: '#dobber',
             collideConnected: 'false',
           });
+
           this.goodCatch = false;
           this.goodThrow = false;
           this.fishCaught = false;
           this.catchTick = 0;
+
+          this.timeWindow = Math.random() * (this.max - this.min) + this.min;
         }
       });
     }
@@ -129,9 +132,13 @@ AFRAME.registerComponent('collision-check', {
           target: '#dobber',
           collideConnected: 'false',
         });
+
         this.goodCatch = false;
         this.goodThrow = false;
         this.catchTick = 0;
+
+        this.timeWindow = Math.random() * (this.max - this.min) + this.min;
+
       }
     }
   },
