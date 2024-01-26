@@ -33,13 +33,13 @@ AFRAME.registerComponent('collision-check', {
           console.log('Element is in rear hitbox');
           this.tickCounter = 0;
           this.firstHit = true;
-          document.getElementById('howTo').setAttribute('value', 'Zwaai nu je hengel in een boog over \nje hooft naar voren om in te gooien!');
+          document.getElementById('howTo').setAttribute('value', 'Zwaai nu je hengel in een boog over \nje schouder naar voren om in \nte gooien!');
 
         }
         //checks for collision with the front hitbox
         if (intersectedEl.id === 'hitbox-front' && this.tickCounter < 300 && this.firstHit == true) {
           console.log("good throw");
-          document.getElementById('howTo').setAttribute('value', 'Nu is het wachten tot dat je beet hebt...');
+          document.getElementById('howTo').setAttribute('value', 'Nu is het wachten tot \ndat je beet hebt...');
           this.firstHit = false;
           this.goodThrow = true;
           const dobber = document.getElementById('dobber');
@@ -59,7 +59,7 @@ AFRAME.registerComponent('collision-check', {
             this.yeetFish();
             this.fishCaught = true;
           }
-          document.getElementById('howTo').setAttribute('value', 'Goed gedaan! Je hebt een vis gevangen!');
+          document.getElementById('howTo').setAttribute('value', 'Goed gedaan! \nJe hebt een vis gevangen!');
           console.log('fish caught');
 
           const fishingRod = document.getElementById('fishing-rod');
