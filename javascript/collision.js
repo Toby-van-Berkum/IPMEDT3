@@ -13,7 +13,12 @@ AFRAME.registerComponent('collision-check', {
     this.goodCatch = false;
     this.fishCaught = false;
 
-    this.originalAttributes = dobber.attributes;
+    const dobber = document.getElementById('dobber');
+    this.originalAttributes = Array.from(dobber.attributes).map(attr => ({
+      name: attr.name,
+      value: attr.value
+    }));
+    console.log(this.originalAttributes);
 
     //time before fish
     this.max = 1000;
@@ -56,7 +61,7 @@ AFRAME.registerComponent('collision-check', {
         //checks for collision with mid hitbox
         if (intersectedEl.id === 'hitbox-mid' && this.goodThrow == true && this.goodCatch == true) {
           if (this.fishCaught == false) {
-            this.yeetFish();
+            this.throwFish();
             this.fishCaught = true;
           }
           document.getElementById('howTo').setAttribute('value', 'Goed gedaan! \nJe hebt een vis gevangen!');
@@ -64,7 +69,6 @@ AFRAME.registerComponent('collision-check', {
 
           const fishingRod = document.getElementById('fishing-rod');
           const dobber = document.getElementById('dobber');
-          console.log(dobber);
   
           dobber.parentNode.removeChild(dobber);
       
@@ -85,6 +89,7 @@ AFRAME.registerComponent('collision-check', {
           this.goodCatch = false;
           this.goodThrow = false;
           this.fishCaught = false;
+          this.biteSoundPlayed = false;
           this.catchTick = 0;
 
           this.timeWindow = Math.random() * (this.max - this.min) + this.min;
@@ -109,6 +114,11 @@ AFRAME.registerComponent('collision-check', {
 
       if(this.catchTick > this.timeWindow - 100 && this.catchTick < this.timeWindow + 100){
         document.getElementById('howTo').setAttribute('value', 'Je hebt beet! \nTrek NU je hengel omhoog!.');
+        if (this.biteSoundPlayed == false) {
+          const fishSound = document.getElementById('splashSound');
+          fishSound.components.sound.playSound();
+          this.biteSoundPlayed = true;
+        }
         this.goodCatch = true;
 
       }
@@ -135,6 +145,7 @@ AFRAME.registerComponent('collision-check', {
 
         this.goodCatch = false;
         this.goodThrow = false;
+        this.biteSoundPlayed = false;
         this.catchTick = 0;
 
         this.timeWindow = Math.random() * (this.max - this.min) + this.min;
@@ -169,7 +180,7 @@ AFRAME.registerComponent('collision-check', {
   },
   handleGoodCatchStart: function () {
     this.setHowToMessage('Je hebt beet! \nTrek NU je hengel omhoog!.');
-    if (!this.biteSoundPlayed) {
+    if (this.biteSoundPlayed == false) {
       const fishSound = document.getElementById('splashSound');
       fishSound.components.sound.playSound();
       this.biteSoundPlayed = true;
@@ -192,9 +203,9 @@ AFRAME.registerComponent('collision-check', {
     this.biteSoundPlayed = false;
   },
 
-  yeetFish: function () {
+  throwFish: function () {
     const scene = document.querySelector('a-scene');
-    const fish = document.getElementById(`snoek${this.fishCount}`);
+    const fish = document.getElementById(`vis${this.fishCount}`);
     if (fish.components['dynamic-body']) {
       fish.setAttribute('visible', true);
       const velocity = new THREE.Vector3(0, 12, 4.5);
@@ -204,12 +215,31 @@ AFRAME.registerComponent('collision-check', {
 
     const fishEntity = document.createElement('a-entity');
     fishEntity.setAttribute('dynamic-body', {});
-    fishEntity.setAttribute('obj-model', "obj:#snoek-obj; mtl: #snoek-mtl");
-    fishEntity.setAttribute('position', {x: 0, y: 0.2, z: -10});
+
+    const rng = Math.floor(Math.random() * 4);
+
+    switch (rng) {
+      case 0:
+        fishEntity.setAttribute('obj-model', "obj:#snoek-obj; mtl: #snoek-mtl");
+        break;
+      case 1:
+        fishEntity.setAttribute('obj-model', "obj:#baars-obj; mtl: #baars-mtl");
+        break;
+      case 2:
+        fishEntity.setAttribute('obj-model', "obj:#voorn-obj; mtl: #voorn-mtl");
+        break;
+      case 3:
+        fishEntity.setAttribute('obj-model', "obj:#karper-obj; mtl: #karper-mtl");
+        break;
+      default:
+        fishEntity.setAttribute('obj-model', "obj:#snoek-obj; mtl: #snoek-mtl");
+    }
+
+    fishEntity.setAttribute('position', {x: 0, y: 0.4, z: -10});
     fishEntity.setAttribute('visible', false);
     fishEntity.setAttribute('grabbable', {});
     fishEntity.classList.add("interactable");
-    fishEntity.id = `snoek${this.fishCount}`;
+    fishEntity.id = `vis${this.fishCount}`;
     
     scene.appendChild(fishEntity);
   },
