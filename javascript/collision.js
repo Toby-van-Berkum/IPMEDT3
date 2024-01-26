@@ -92,7 +92,7 @@ AFRAME.registerComponent('collision-check', {
 
       //resets text message in case of bad throw
       if (this.goodThrow == false) {
-        document.getElementById('howTo').setAttribute('value', 'Hi welkom bij onze fishing tutorial! \nOm te beginnen breng je vishengel over\n je schouder naar achter.');
+        document.getElementById('howTo').setAttribute('value', 'Hi welkom bij onze fishing tutorial! \nOm te beginnen breng je vishengel\n over je schouder naar achter.');
       }
     }
     //time before catch
